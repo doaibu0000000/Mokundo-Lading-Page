@@ -37,13 +37,12 @@ jobs:
         run: bun install
         
       - name: Build with Next.js
-        # Menggunakan bunx next build agar tidak menjalankan script build di package.json yang memiliki command cp untuk standalone
-        run: bunx next build
+        # Gunakan --webpack untuk memaksa webpack bundler (Turbopack adalah default di Next.js 16
+        # namun crash di GitHub Actions karena persistent cache tidak kompatibel di CI)
+        run: bunx next build --webpack
         env:
           # Pastikan base path sesuai dengan nama repository (case-sensitive)
           NEXT_PUBLIC_BASE_PATH: /Mokundo-Lading-Page
-          # Nonaktifkan Turbopack — tidak stabil di CI environment (GitHub Actions)
-          NEXT_TURBOPACK: "0"
           
       - name: Create .nojekyll
         run: touch out/.nojekyll
