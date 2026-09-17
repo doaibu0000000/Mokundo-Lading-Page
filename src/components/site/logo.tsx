@@ -12,7 +12,7 @@ export function Logo({ className, onlyMark = false }: LogoProps) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <Image
-        src="/images/logo.png"
+        src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/logo.png`}
         alt={`Logo ${site.name}`}
         width={40}
         height={34}
