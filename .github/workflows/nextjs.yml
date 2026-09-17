@@ -38,10 +38,12 @@ jobs:
         
       - name: Build with Next.js
         # Menggunakan bunx next build agar tidak menjalankan script build di package.json yang memiliki command cp untuk standalone
-        run: bunx next build --no-turbopack
+        run: bunx next build
         env:
           # Pastikan base path sesuai dengan nama repository (case-sensitive)
           NEXT_PUBLIC_BASE_PATH: /Mokundo-Lading-Page
+          # Nonaktifkan Turbopack — tidak stabil di CI environment (GitHub Actions)
+          NEXT_TURBOPACK: "0"
           
       - name: Create .nojekyll
         run: touch out/.nojekyll
