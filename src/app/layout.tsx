@@ -16,6 +16,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -70,11 +72,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/images/favicon-64.png", sizes: "64x64", type: "image/png" },
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: `${base}/images/favicon-64.png`, sizes: "64x64", type: "image/png" },
+      { url: `${base}/icon.svg`, type: "image/svg+xml" },
     ],
     apple: [
-      { url: "/images/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: `${base}/images/icon-192.png`, sizes: "192x192", type: "image/png" },
     ],
   },
 };
