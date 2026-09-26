@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  output: "export",
   /* Kualitas & format gambar teroptimasi: AVIF lebih kecil dari WebP */
   images: {
     formats: ["image/avif", "image/webp"],
+    unoptimized: true,
   },
   typescript: {
     ignoreBuildErrors: true,
