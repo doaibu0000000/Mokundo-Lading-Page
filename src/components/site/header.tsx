@@ -196,17 +196,20 @@ export function Header() {
         </div>
       </div>
 
-      {/* Panel menu mobile — dropdown di bawah header, reveal clip-path + stagger */}
+      {/* Panel menu mobile — dropdown di bawah header, reveal clip-path + stagger.
+          WAJIB solid tanpa backdrop-blur & tanpa animasi opacity pada panel:
+          clip-path + opacity pada elemen ber-backdrop-filter memicu kedipan putih
+          satu layar saat menu ditutup di Chrome Android. */}
       <AnimatePresence>
         {open && (
           <motion.nav
             id="mobile-menu"
             aria-label="Navigasi mobile"
-            initial={{ opacity: 0, clipPath: "inset(0% 0% 100% 0%)" }}
-            animate={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
-            exit={{ opacity: 0, clipPath: "inset(0% 0% 100% 0%)" }}
+            initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
+            animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+            exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
             transition={{ duration: reduce ? 0 : 0.35, ease: [0.32, 0.72, 0, 1] }}
-            className="fixed inset-x-0 top-16 z-40 max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain border-b border-slate-900/10 bg-white/[0.98] shadow-[0_20px_50px_rgba(2,20,40,0.25)] backdrop-blur-xl will-change-transform [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:top-20 lg:hidden dark:border-white/10 dark:bg-slate-950/[0.98] dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
+            className="fixed inset-x-0 top-16 z-40 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-b border-slate-900/10 bg-white shadow-[0_20px_50px_rgba(2,20,40,0.25)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:top-20 lg:hidden dark:border-white/10 dark:bg-slate-950 dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
           >
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 14 }}
