@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, Clock3, Phone } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { navLinks, site, waLink, images } from "@/config/site";
 import { WhatsAppIcon } from "./whatsapp-icon";
 import { ThemeToggle } from "./theme-toggle";
@@ -196,87 +196,91 @@ export function Header() {
         </div>
       </div>
 
-      {/* Panel menu mobile — dropdown di bawah header, reveal clip-path + stagger.
-          WAJIB solid tanpa backdrop-blur & tanpa animasi opacity pada panel:
-          clip-path + opacity pada elemen ber-backdrop-filter memicu kedipan putih
-          satu layar saat menu ditutup di Chrome Android. */}
-      <AnimatePresence>
-        {open && (
-          <motion.nav
-            id="mobile-menu"
-            aria-label="Navigasi mobile"
-            initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
-            animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
-            exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
-            transition={{ duration: reduce ? 0 : 0.35, ease: [0.32, 0.72, 0, 1] }}
-            className="fixed inset-x-0 top-16 z-40 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-b border-slate-900/10 bg-white shadow-[0_20px_50px_rgba(2,20,40,0.25)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:top-20 lg:hidden dark:border-white/10 dark:bg-slate-950 dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
-          >
-            <motion.div
-              initial={reduce ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: reduce ? 0 : 0.3, delay: reduce ? 0 : 0.08, ease: "easeOut" }}
-              className="mx-auto max-w-md space-y-3.5 px-4 py-4"
-            >
-              <ul className="divide-y divide-slate-900/5 rounded-2xl border border-slate-900/10 bg-slate-900/[0.03] p-1.5 backdrop-blur-md dark:divide-white/5 dark:border-white/10 dark:bg-white/[0.04]">
-                {menuItems.map((link, i) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      aria-current={active === link.href ? "true" : undefined}
-                      className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 transition-colors duration-150 hover:bg-slate-900/5 active:scale-[0.98] dark:hover:bg-white/10"
-                    >
-                      <span className="flex items-center gap-3">
-                        <span className="font-mono text-[11px] font-semibold text-orange-500/90">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span
-                          className={cn(
-                            "text-[15px] font-semibold text-slate-700 transition-colors group-hover:text-slate-950 dark:text-slate-200 dark:group-hover:text-white",
-                            active === link.href && "text-orange-700 dark:text-orange-400"
-                          )}
-                        >
-                          {link.label}
-                        </span>
-                      </span>
-                      <ChevronRight
-                        className="h-4 w-4 text-slate-400 transition-all duration-150 group-hover:translate-x-1 group-hover:text-orange-500 dark:text-slate-500 dark:group-hover:text-orange-400"
-                        aria-hidden="true"
-                      />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Baris status: siaga 24 jam + respon cepat */}
-              <div className="flex items-center justify-between rounded-xl border border-slate-900/10 bg-slate-900/[0.03] px-3.5 py-2.5 text-xs dark:border-white/10 dark:bg-white/[0.03]">
-                <span className="inline-flex items-center gap-1.5 font-medium text-slate-700 dark:text-slate-300">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                  </span>
-                  Siaga 24 Jam Non-Stop
-                </span>
-                <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
-                  <Clock3 className="h-3 w-3 text-orange-500 dark:text-orange-400" aria-hidden="true" />
-                  Respon Cepat
-                </span>
-              </div>
-
-              {/* CTA utama menu — gradien oranye seperti referensi */}
-              <a
-                href={waLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative flex h-12 w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-[15px] font-bold text-white shadow-[0_4px_20px_rgba(249,115,22,0.35)] transition-all duration-150 active:scale-[0.98] hover:shadow-[0_6px_25px_rgba(249,115,22,0.5)]"
-              >
-                <WhatsAppIcon className="h-5 w-5 transition-transform duration-150 group-hover:scale-110" />
-                Chat WhatsApp Sekarang
-              </a>
-            </motion.div>
-          </motion.nav>
+      {/* Panel menu mobile — dropdown di bawah header. Selalu ter-mount, transisi
+          CSS murni opacity+transform (kompositor GPU) + trik visibility.
+          JANGAN menganimasikan clip-path atau meng-unmount panel saat exit:
+          re-rasterisasi clip-path per frame di Chrome Android memicu kedipan
+          putih satu layar saat menu ditutup. Tanpa backdrop-blur juga — blur
+          di dalam elemen ber-animasi memicu glitch yang sama. */}
+      <nav
+        id="mobile-menu"
+        aria-label="Navigasi mobile"
+        aria-hidden={!open}
+        className={cn(
+          "fixed inset-x-0 top-16 z-40 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-b border-slate-900/10 bg-white shadow-[0_20px_50px_rgba(2,20,40,0.25)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:top-20 lg:hidden dark:border-white/10 dark:bg-slate-950 dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)]",
+          "transition-[opacity,transform,visibility] ease-out motion-reduce:transition-none",
+          open
+            ? "visible translate-y-0 opacity-100 duration-300"
+            : "invisible -translate-y-3 opacity-0 duration-200"
         )}
-      </AnimatePresence>
+      >
+        <div
+          className={cn(
+            "mx-auto max-w-md space-y-3.5 px-4 py-4 transition-[opacity,transform] ease-out motion-reduce:transition-none",
+            open
+              ? "translate-y-0 opacity-100 duration-300"
+              : "-translate-y-2 opacity-0 duration-200"
+          )}
+          style={{ transitionDelay: open ? "80ms" : "0ms" }}
+        >
+          <ul className="divide-y divide-slate-900/5 rounded-2xl border border-slate-900/10 bg-slate-900/[0.03] p-1.5 dark:divide-white/5 dark:border-white/10 dark:bg-white/[0.04]">
+            {menuItems.map((link, i) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active === link.href ? "true" : undefined}
+                  className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 transition-colors duration-150 hover:bg-slate-900/5 active:scale-[0.98] dark:hover:bg-white/10"
+                >
+                  <span className="flex items-center gap-3">
+                    <span className="font-mono text-[11px] font-semibold text-orange-500/90">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className={cn(
+                        "text-[15px] font-semibold text-slate-700 transition-colors group-hover:text-slate-950 dark:text-slate-200 dark:group-hover:text-white",
+                        active === link.href && "text-orange-700 dark:text-orange-400"
+                      )}
+                    >
+                      {link.label}
+                    </span>
+                  </span>
+                  <ChevronRight
+                    className="h-4 w-4 text-slate-400 transition-all duration-150 group-hover:translate-x-1 group-hover:text-orange-500 dark:text-slate-500 dark:group-hover:text-orange-400"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Baris status: siaga 24 jam + respon cepat */}
+          <div className="flex items-center justify-between rounded-xl border border-slate-900/10 bg-slate-900/[0.03] px-3.5 py-2.5 text-xs dark:border-white/10 dark:bg-white/[0.03]">
+            <span className="inline-flex items-center gap-1.5 font-medium text-slate-700 dark:text-slate-300">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              Siaga 24 Jam Non-Stop
+            </span>
+            <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
+              <Clock3 className="h-3 w-3 text-orange-500 dark:text-orange-400" aria-hidden="true" />
+              Respon Cepat
+            </span>
+          </div>
+
+          {/* CTA utama menu — gradien oranye seperti referensi */}
+          <a
+            href={waLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative flex h-12 w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-[15px] font-bold text-white shadow-[0_4px_20px_rgba(249,115,22,0.35)] transition-all duration-150 active:scale-[0.98] hover:shadow-[0_6px_25px_rgba(249,115,22,0.5)]"
+          >
+            <WhatsAppIcon className="h-5 w-5 transition-transform duration-150 group-hover:scale-110" />
+            Chat WhatsApp Sekarang
+          </a>
+        </div>
+      </nav>
     </header>
   );
 }
