@@ -2,278 +2,750 @@
  * ============================================================
  *  KONFIGURASI DATA BISNIS — Mukundo Teknologi Indonesia
  * ============================================================
- *  Semua data bisnis landing page terpusat di file ini.
- *  Pemilik bisnis cukup mengedit file ini tanpa menyentuh kode lain.
- *
- *  PENTING (WAJIB DIBACA SEBELUM GO-LIVE):
- *  1. `whatsappNumber` di bawah adalah nomor resmi bisnis: 6281221944007.
- *  2. Angka pada `stats` merupakan angka demo/placeholder —
- *     sesuaikan dengan data riil bisnis Anda.
- * ============================================================
+ *  Semua data landing page terpusat di file ini.
+ *  Foto & video 100% dari folder "reverensi mokundo" (asli, bukan AI).
  */
+
+import imgLogo from "../../public/images/logo.png";
+import imgHeroTim from "../../public/images/hero-tim-mukundo.webp";
+import imgAcCompressor from "../../public/images/ac-compressor-repair.webp";
+import imgAcScaffolding from "../../public/images/ac-service-scaffolding.webp";
+import imgPlnBriefing from "../../public/images/pln-team-briefing.webp";
+import imgPlnVehicle from "../../public/images/pln-operational-vehicle.webp";
+import imgInstalasiListrik from "../../public/images/instalasi-listrik-rapi.webp";
+import imgMotorIndustri from "../../public/images/motor-industri.webp";
+import imgAcMobil from "../../public/images/ac-mobil.webp";
+import imgMeterPrabayar from "../../public/images/meter-prabayar-melcoinda.webp";
+import imgVideoAtapPoster from "../../public/images/video-atap-poster.jpg";
+
+/* Foto dokumentasi lapangan — 100% dari folder "reverensi mokundo" (permintaan pemilik). */
+import imgCuciAcCassette from "../../public/images/cuci-ac-cassette.webp";
+import imgServisAcCassette from "../../public/images/servis-ac-cassette.webp";
+import imgServisAcIndoor from "../../public/images/servis-ac-indoor.webp";
+import imgPerawatanOutdoor from "../../public/images/perawatan-outdoor.webp";
+import imgServisOutdoorMulti from "../../public/images/servis-outdoor-multi.webp";
+import imgPerapianPanel from "../../public/images/perapian-panel.webp";
+import imgPanelDistribusi from "../../public/images/panel-distribusi.webp";
+import imgPemeliharaanTrafo from "../../public/images/pemeliharaan-trafo.webp";
+import imgServisMotorGenset from "../../public/images/servis-motor-genset.webp";
+import imgPerbaikanMesin from "../../public/images/perbaikan-mesin.webp";
+import imgOverhaulMesin from "../../public/images/overhaul-mesin.webp";
+import imgServisGensetIndustri from "../../public/images/servis-genset-industri.webp";
+import imgPemasanganCctv from "../../public/images/pemasangan-cctv.webp";
+import imgCctvKantor from "../../public/images/cctv-kantor.webp";
+import imgCctvMonitorDvr from "../../public/images/cctv-monitor-dvr.webp";
+import imgCctvDomeIndoor from "../../public/images/cctv-dome-indoor.webp";
+import imgInstalasiCctv from "../../public/images/instalasi-cctv.webp";
+import imgPengelasanStruktur from "../../public/images/pengelasan-struktur.webp";
+import imgLasPipa from "../../public/images/las-pipa.webp";
+import imgFabrikasiBaja from "../../public/images/fabrikasi-baja.webp";
+import imgServisElektronik from "../../public/images/servis-elektronik.webp";
+import imgUjiElektronik from "../../public/images/uji-elektronik.webp";
+import imgServisLaptop from "../../public/images/servis-laptop.webp";
+import imgBenchServis from "../../public/images/bench-servis.webp";
+import imgRenovasiPlafon from "../../public/images/renovasi-plafon-interior.webp";
+import imgInstalasiPipaToren from "../../public/images/instalasi-pipa-toren.webp";
+
+/* Foto profil pelanggan untuk testimoni (potret orang Indonesia asli, bukan AI). */
+import avatarRina from "../../public/images/avatars/avatar-rina.webp";
+import avatarHendra from "../../public/images/avatars/avatar-hendra.webp";
+import avatarDewi from "../../public/images/avatars/avatar-dewi.webp";
+// Foto avatar testimoni (potret warga asli Indonesia)
+import avatarSolihin from "../../public/images/avatars/avatar-solihin.webp";
+import avatarSiti from "../../public/images/avatars/avatar-siti.webp";
+import avatarRizky from "../../public/images/avatars/avatar-rizky.webp";
+import avatarYuyun from "../../public/images/avatars/avatar-yuyun.webp";
+import avatarAnisa from "../../public/images/avatars/avatar-anisa.webp";
 
 import type { StaticImageData } from "next/image";
 
-import imgAcScaffolding from "../../public/images/ac-service-scaffolding.jpg";
-import imgAcCompressor from "../../public/images/ac-compressor-repair.jpg";
-// Foto briefing tim teknisi (sudah dibersihkan dari watermark & GPS overlay)
-import imgPlnBriefing from "../../public/images/pln-team-briefing.jpg";
-import imgPlnVehicle from "../../public/images/pln-operational-vehicle.jpg";
-import imgMeterMelcoinda from "../../public/images/meter-prabayar-melcoinda.jpg";
-// Foto instalasi listrik rapi & meter prabayar (HD jernih & terfokus)
-import imgMeterInstall from "../../public/images/instalasi-listrik-rapi.jpg";
-import imgMeterSanking from "../../public/images/meter-prabayar-sanking.jpg";
-
 export const images = {
-  hero: imgAcScaffolding,
+  logo: imgLogo,
+  heroMain: imgHeroTim,
   heroSmall: imgAcCompressor,
-  whyUs: imgPlnBriefing,
-  gallery: [
-    { src: imgAcScaffolding, alt: "Teknisi Mukundo Teknologi melakukan servis unit outdoor AC di lokasi pelanggan", caption: "Servis unit outdoor AC" },
-    { src: imgPlnBriefing, alt: "Briefing keselamatan kerja tim sebelum pengerjaan proyek kelistrikan", caption: "Briefing K3 sebelum pengerjaan" },
-    { src: imgAcCompressor, alt: "Proses brazing kompresor AC oleh teknisi ahli", caption: "Brazing & perbaikan kompresor" },
-    { src: imgMeterInstall, alt: "Instalasi meter listrik dan perpipaan yang rapi dan terstandar", caption: "Instalasi rapi & terstandar" },
-    { src: imgMeterMelcoinda, alt: "Pemasangan meter listrik prabayar", caption: "Instalasi meter prabayar" },
-    { src: imgPlnVehicle, alt: "Armada operasional tim siap ditugaskan ke lokasi pelanggan", caption: "Armada operasional siap pakai" },
-  ],
-  galleryExtra: [
-    { src: imgMeterSanking, alt: "Meter listrik prabayar tipe SANKING CSI-11P siap dipasang", caption: "Meter prabayar siap pasang" },
-  ],
-};
+} as const;
 
 export const site = {
   name: "Mukundo Teknologi Indonesia",
   shortName: "Mukundo Teknologi",
-  owner: "Mas Dadan",
-  tagline: "Servis AC & Jasa Kelistrikan PLN",
+  tagline: "Satu Tim, Semua Solusi",
+  /** Domain kanonik — sumber tunggal untuk metadataBase, robots & sitemap. */
+  url: "https://mukundoteknologi.com",
   description:
-    "Layanan profesional perawatan, perbaikan, dan instalasi AC — split, standing floor, cool storage, hingga mini chiller — serta jasa kelistrikan PLN lengkap. Melayani Kalijati, Subang, dan sekitarnya, 24 jam.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-
+    "Jasa perbaikan & instalasi serba ada: AC, kelistrikan PLN, mesin industri, alat berat, kendaraan, CCTV, hingga perbaikan bangunan. Melayani Kalijati, Subang & sekitarnya — buka 24 jam.",
   whatsappNumber: "6281221944007",
   phoneDisplay: "+62 812-2194-4007",
   email: "mokundo.co@gmail.com",
-
-  address: {
-    street: "Jl. Marjan, Kalijati Tim.",
-    district: "Kec. Kalijati",
-    city: "Kabupaten Subang",
-    province: "Jawa Barat",
-    country: "Indonesia",
-    full: "Jl. Marjan, Kalijati Tim., Kec. Kalijati, Kabupaten Subang, Jawa Barat, Indonesia",
-  },
-  geo: { lat: -6.563045, lng: 107.768198 },
+  address: "Jl. Raya Kalijati Timur No.17, Dawuan, Kec. Kalijati, Kab. Subang, Jawa Barat",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Mukundo+Teknologi+Indonesia+Kalijati+Subang",
+  /** URL embed peta (tanpa API key) untuk iframe di section Lokasi. */
+  mapsEmbedUrl:
+    "https://www.google.com/maps?q=Mukundo+Teknologi+Indonesia,+Jl.+Raya+Kalijati+Timur+No.17,+Dawuan,+Kalijati,+Kab.+Subang&hl=id&z=15&output=embed",
   hours: "Buka 24 Jam — 7 Hari Seminggu",
-};
+} as const;
 
 export const defaultWaMessage =
-  "Halo Mukundo Teknologi Indonesia, saya ingin bertanya tentang layanan AC / kelistrikan.";
+  "Halo Mukundo Teknologi, saya ingin bertanya tentang jasa perbaikan.";
 
 export function waLink(message: string = defaultWaMessage): string {
   return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
-/* ---------------------------------- NAV ---------------------------------- */
+/* --------------------------------- NAV ---------------------------------- */
 
 export const navLinks = [
-  { label: "Beranda", href: "#beranda" },
   { label: "Layanan", href: "#layanan" },
-  { label: "Keunggulan", href: "#keunggulan" },
   { label: "Galeri", href: "#galeri" },
+  { label: "Keunggulan", href: "#keunggulan" },
   { label: "Testimoni", href: "#testimoni" },
   { label: "FAQ", href: "#faq" },
+  { label: "Lokasi", href: "#lokasi" },
   { label: "Kontak", href: "#kontak" },
 ] as const;
 
-/* --------------------------------- STATS --------------------------------- */
-/** ⚠️ Angka demo — sesuaikan dengan data riil bisnis. */
+/* -------------------------------- STATS --------------------------------- */
 
 export const stats = [
   { value: "2.500+", label: "Proyek Terselesaikan" },
   { value: "15+", label: "Teknisi Berpengalaman" },
   { value: "24/7", label: "Siap Melayani" },
-  { value: "100%", label: "Pengerjaan Bergaransi" },
+  { value: "100%", label: "Bergaransi" },
 ] as const;
 
-/* -------------------------------- SERVICES ------------------------------- */
+/* ------------------------------- MARQUEE -------------------------------- */
 
-export type ServiceGroup = {
-  id: string;
-  icon: "snowflake" | "zap";
+export const marqueeItems = [
+  "Servis AC",
+  "Instalasi Listrik",
+  "Meter Prabayar",
+  "Naik Daya PLN",
+  "Motor Industri",
+  "Alat Berat",
+  "Genset",
+  "AC Mobil",
+  "CCTV",
+  "Atap & Baja Ringan",
+  "Cat & Renovasi",
+  "Pompa Air",
+  "Dan Banyak Lagi…",
+] as const;
+
+/* ------------------------------- SERVICES ------------------------------- */
+
+export type Service = {
+  icon:
+    | "snowflake"
+    | "zap"
+    | "plugzap"
+    | "gauge"
+    | "cog"
+    | "tractor"
+    | "car"
+    | "cctv"
+    | "hammer";
   title: string;
   description: string;
-  items: { icon: string; title: string; description: string }[];
+  /** Rincian sub-jasa — tampil di dialog detail layanan. */
+  items: string[];
+  /** Pesan WhatsApp yang terisi otomatis saat kartu layanan diklik. */
+  waMessage: string;
+  /** Foto dokumentasi asli untuk dialog rincian (opsional). */
+  photo?: StaticImageData;
+  photoAlt?: string;
 };
 
-export const serviceGroups: ServiceGroup[] = [
+export const services: Service[] = [
   {
-    id: "ac",
     icon: "snowflake",
-    title: "Servis AC & Tata Udara",
-    description:
-      "Perawatan, perbaikan, dan instalasi berbagai jenis AC untuk rumah tangga, komersial, hingga industri.",
+    title: "Servis & Cuci AC",
+    description: "Split, cassette, standing hingga cool storage.",
     items: [
-      {
-        icon: "wind",
-        title: "Cuci & Perawatan AC",
-        description:
-          "Menjaga AC tetap dingin maksimal, hemat listrik, dan memperpanjang usia pakai.",
-      },
-      {
-        icon: "wrench",
-        title: "Perbaikan & Servis AC",
-        description:
-          "Menangani berbagai kerusakan AC dengan diagnosa akurat dan pengerjaan bergaransi.",
-      },
-      {
-        icon: "airvent",
-        title: "Instalasi AC Baru",
-        description:
-          "Pemasangan rapi dengan titik dudukan, perpipaan, dan kelistrikan sesuai standar.",
-      },
-      {
-        icon: "gauge",
-        title: "Isi Freon & Cek Kebocoran",
-        description:
-          "Isi freon sesuai standar disertai pengecekan kebocoran agar performa AC tetap optimal.",
-      },
-      {
-        icon: "thermometer-snowflake",
-        title: "Cool Storage & Mini Chiller",
-        description:
-          "Instalasi, perawatan, dan perbaikan sistem pendingin komersial maupun industri.",
-      },
-      {
-        icon: "truck",
-        title: "Bongkar, Pindah & Reinstalasi",
-        description:
-          "Bongkar pasang AC saat pindah rumah, kantor, atau renovasi — aman dan rapi.",
-      },
+      "Cuci & servis rutin AC split, cassette, standing",
+      "Isi freon & perbaikan kebocoran",
+      "Perbaikan kompresor, modul & PCB",
+      "Cooling storage & ruang pendingin",
     ],
+    waMessage:
+      "Halo Mukundo Teknologi, saya ingin servis / cuci AC. Bisa dijadwalkan kapan?",
+    photo: imgAcCompressor,
+    photoAlt: "Teknisi melakukan brazing kompresor AC",
   },
   {
-    id: "listrik",
     icon: "zap",
-    title: "Jasa Kelistrikan PLN",
-    description:
-      "Pengurusan sampai pemasangan — semua kebutuhan kelistrikan rumah dan bangunan ditangani satu tim.",
+    title: "Kelistrikan & Instalasi",
+    description: "Titik lampu, panel, grounding, perbaikan error.",
     items: [
-      {
-        icon: "plugzap",
-        title: "Pasang Baru Daya PLN",
-        description:
-          "Dibantu dari pengurusan administrasi hingga meter terpasang dan siap pakai.",
-      },
-      {
-        icon: "trendingup",
-        title: "Naik Daya",
-        description:
-          "Tambah daya listrik sesuai kebutuhan peralatan rumah atau usaha Anda.",
-      },
-      {
-        icon: "receipttext",
-        title: "Rubah Tarif",
-        description:
-          "Penyesuaian golongan tarif dan daya meter listrik sesuai kebutuhan.",
-      },
-      {
-        icon: "cable",
-        title: "Instalasi Kelistrikan",
-        description:
-          "Instalasi titik lampu, stop kontak, panel distribusi, hingga grounding.",
-      },
-      {
-        icon: "network",
-        title: "Penyambungan Jaringan",
-        description:
-          "Penyambungan, perbaikan, dan pemeliharaan jaringan kabel listrik.",
-      },
-      {
-        icon: "package",
-        title: "Pengadaan & Sparepart",
-        description:
-          "Meter prabayar, MCB, kabel, dan material listrik — tersedia di toko sparepart kami.",
-      },
+      "Titik lampu, saklar & stop kontak",
+      "Perbaikan listrik drop, kurzus & error",
+      "Grounding & panel distribusi",
+      "Instalasi rumah, toko, kantor & pabrik",
     ],
+    waMessage:
+      "Halo Mukundo Teknologi, saya butuh bantuan jasa kelistrikan / instalasi.",
+    photo: imgInstalasiListrik,
+    photoAlt: "Instalasi meter listrik dan perpipaan yang rapi",
+  },
+  {
+    icon: "plugzap",
+    title: "Pasang Baru & Naik Daya PLN",
+    description: "Urus administrasi sampai meter siap pakai.",
+    items: [
+      "Pengurusan pasang baru daya PLN",
+      "Naik daya 900 VA hingga 35.000 VA+",
+      "Balik nama & perubahan daya",
+      "Pemasangan meter & penyambungan",
+    ],
+    waMessage:
+      "Halo Mukundo Teknologi, saya ingin pasang baru / naik daya listrik PLN.",
+    photo: imgPlnBriefing,
+    photoAlt: "Briefing keselamatan tim sebelum pengerjaan PLN",
+  },
+  {
+    icon: "gauge",
+    title: "Meter Prabayar & Panel",
+    description: "Pasang, ganti, dan perbaikan meter & panel.",
+    items: [
+      "Pemasangan meter prabayar baru",
+      "Ganti meter rusak / token error",
+      "Perbaikan panel MCB & kotak App",
+      "Panel metering industri",
+    ],
+    waMessage:
+      "Halo Mukundo Teknologi, saya butuh pasang / ganti meter prabayar atau panel.",
+    photo: imgMeterPrabayar,
+    photoAlt: "Meter listrik prabayar terpasang",
+  },
+  {
+    icon: "cog",
+    title: "Motor & Mesin Industri",
+    description: "Rewinding, bearing, pompa, hingga mesin pabrik.",
+    items: [
+      "Rewinding motor listrik",
+      "Ganti bearing & perbaikan poros",
+      "Perbaikan pompa air & mesin pabrik",
+      "Troubleshooting panel & drive mesin",
+    ],
+    waMessage:
+      "Halo Mukundo Teknologi, saya punya motor / mesin industri yang perlu diperbaiki.",
+    photo: imgMotorIndustri,
+    photoAlt: "Motor listrik industri tiga fasa",
+  },
+  {
+    icon: "tractor",
+    title: "Alat Berat & Genset",
+    description: "Perawatan & perbaikan mesin berat dan genset.",
+    items: [
+      "Servis rutin & overhaul genset",
+      "Perawatan mesin alat berat",
+      "Kelistrikan & sistem kendali alat berat",
+      "Pemasangan & pindahan genset",
+    ],
+    waMessage:
+      "Halo Mukundo Teknologi, saya butuh servis alat berat / genset.",
+    photo: imgPanelDistribusi,
+    photoAlt: "Perawatan mesin alat berat dan genset",
+  },
+  {
+    icon: "car",
+    title: "AC Mobil & Kendaraan",
+    description: "Servis AC, kelistrikan, dan instalasi kendaraan.",
+    items: [
+      "Cuci & isi freon AC mobil",
+      "Perbaikan kompresor & evaporator",
+      "Kelistrikan & modul kendaraan",
+      "Instalasi aksesori kendaraan",
+    ],
+    waMessage:
+      "Halo Mukundo Teknologi, saya ingin servis AC mobil / kelistrikan kendaraan.",
+    photo: imgAcMobil,
+    photoAlt: "Perbaikan modul AC dan kelistrikan kendaraan",
+  },
+  {
+    icon: "cctv",
+    title: "CCTV & Keamanan",
+    description: "Pemasangan CCTV, alarm, dan smart home.",
+    items: [
+      "Pasang CCTV rumah, ruko & gudang",
+      "CCTV IP multi kamera & pantau online",
+      "Alarm & sensor keamanan",
+      "Smart home & otomasi sederhana",
+    ],
+    waMessage:
+      "Halo Mukundo Teknologi, saya ingin pasang CCTV / sistem keamanan.",
+    photo: imgPemasanganCctv,
+    photoAlt: "Teknisi memasang kamera CCTV di titik strategis",
+  },
+  {
+    icon: "hammer",
+    title: "Atap, Cat & Renovasi",
+    description: "Bocor, cat ulang, perbaikan bangunan & sipil.",
+    items: [
+      "Perbaikan atap bocor & baja ringan",
+      "Inspeksi kondisi atap gudang",
+      "Cat ulang & finishing",
+      "Renovasi & perbaikan sipil ringan",
+    ],
+    waMessage:
+      "Halo Mukundo Teknologi, saya butuh perbaikan atap / cat / renovasi.",
+    photo: imgVideoAtapPoster,
+    photoAlt: "Inspeksi kondisi atap gudang dari ketinggian",
   },
 ];
 
-export const extraServices = {
-  title: "Restorasi Kerusakan & Keamanan Rumah",
-  description:
-    "Di luar AC dan listrik, kami juga menangani damage restoration serta pemasangan CCTV dan sistem keamanan rumah (home security).",
-  cta: "Konsultasi Gratis",
-};
+/* ------------------------------- GALLERY -------------------------------- */
 
-/* -------------------------------- WHY US --------------------------------- */
+export type GalleryCategory =
+  | "ac"
+  | "listrik"
+  | "mesin"
+  | "keamanan"
+  | "las"
+  | "elektronik"
+  | "bangunan";
+
+export const galleryFilters: { id: GalleryCategory; label: string }[] = [
+  { id: "ac", label: "AC" },
+  { id: "listrik", label: "Listrik & PLN" },
+  { id: "mesin", label: "Mesin & Genset" },
+  { id: "keamanan", label: "CCTV & Keamanan" },
+  { id: "las", label: "Las & Metal" },
+  { id: "elektronik", label: "Elektronik" },
+  { id: "bangunan", label: "Bangunan & Renovasi" },
+];
+
+export type GalleryItem =
+  | {
+      type: "photo";
+      src: StaticImageData;
+      alt: string;
+      caption: string;
+      category: GalleryCategory;
+    }
+  | {
+      type: "video";
+      src: string;
+      poster?: string;
+      alt: string;
+      caption: string;
+      category: GalleryCategory;
+    };
+
+export const gallery: GalleryItem[] = [
+  // Enam item pertama = sorotan lintas bidang (tampilan awal mobile menampilkan
+  // keenamnya agar ragam pekerjaan langsung terlihat tanpa terasa penuh).
+  {
+    type: "photo",
+    src: imgCuciAcCassette,
+    alt: "Teknisi membersihkan AC cassette plafon kantor",
+    caption: "Cuci & servis AC cassette kantor",
+    category: "ac",
+  },
+  {
+    type: "photo",
+    src: imgPerapianPanel,
+    alt: "Teknisi merapikan jalur kabel pada panel pembagi listrik",
+    caption: "Perapian & perbaikan panel listrik",
+    category: "listrik",
+  },
+  {
+    type: "photo",
+    src: imgPemasanganCctv,
+    alt: "Teknisi memasang kamera CCTV di dinding bangunan",
+    caption: "Pemasangan kamera CCTV",
+    category: "keamanan",
+  },
+  {
+    type: "photo",
+    src: imgPengelasanStruktur,
+    alt: "Pekerja mengelas struktur baja dengan percikan api",
+    caption: "Pengelasan struktur baja",
+    category: "las",
+  },
+  {
+    type: "photo",
+    src: imgServisGensetIndustri,
+    alt: "Teknisi menservis genset dan mesin industri",
+    caption: "Servis genset & mesin industri",
+    category: "mesin",
+  },
+  {
+    type: "photo",
+    src: imgUjiElektronik,
+    alt: "Pengujian dan perbaikan board elektronik di meja servis",
+    caption: "Perbaikan perangkat elektronik",
+    category: "elektronik",
+  },
+  // ——— Lanjutan koleksi per bidang ———
+  {
+    type: "photo",
+    src: imgAcCompressor,
+    alt: "Proses brazing kompresor AC oleh teknisi ahli",
+    caption: "Brazing & perbaikan kompresor",
+    category: "ac",
+  },
+  {
+    type: "photo",
+    src: imgPlnBriefing,
+    alt: "Briefing keselamatan kerja tim sebelum pengerjaan kelistrikan",
+    caption: "Briefing K3 sebelum pengerjaan",
+    category: "listrik",
+  },
+  {
+    type: "video",
+    src: "/images/video-ventilator-atap.mp4",
+    poster: "/images/video-ventilator-atap-poster.jpg",
+    alt: "Video pemasangan ventilator turbin di atap bangunan",
+    caption: "Pemasangan ventilator atap",
+    category: "bangunan",
+  },
+  {
+    type: "photo",
+    src: imgRenovasiPlafon,
+    alt: "Renovasi interior ruang tamu dan pemasangan plafon gypsum drop ceiling",
+    caption: "Renovasi interior & plafon gypsum",
+    category: "bangunan",
+  },
+  {
+    type: "photo",
+    src: imgInstalasiPipaToren,
+    alt: "Instalasi toren air ganda dan perpipaan distribusi di atap",
+    caption: "Instalasi toren & pipa air",
+    category: "bangunan",
+  },
+  {
+    type: "video",
+    src: "/images/video-renovasi-ruangan.mp4",
+    alt: "Video proses renovasi dan perataan dinding ruangan",
+    caption: "Renovasi & finishing ruangan",
+    category: "bangunan",
+  },
+  {
+    type: "video",
+    src: "/images/video-interior-kamar.mp4",
+    alt: "Video pengerjaan interior kamar dan pengecatan",
+    caption: "Pengerjaan interior kamar",
+    category: "bangunan",
+  },
+  {
+    type: "video",
+    src: "/images/video-finishing-lantai.mp4",
+    alt: "Video pemasangan keramik dan finishing lantai ruangan",
+    caption: "Pemasangan keramik & lantai",
+    category: "bangunan",
+  },
+  {
+    type: "video",
+    src: "/images/video-pengelasan.mp4",
+    poster: "/images/video-pengelasan-poster.jpg",
+    alt: "Video proses pengelasan logam dengan percikan api",
+    caption: "Proses pengelasan",
+    category: "las",
+  },
+  {
+    type: "video",
+    src: "/images/video-servis-mesin.mp4",
+    poster: "/images/video-servis-mesin-poster.jpg",
+    alt: "Video proses servis dan pembongkaran mesin",
+    caption: "Servis mesin",
+    category: "mesin",
+  },
+  {
+    type: "photo",
+    src: imgInstalasiListrik,
+    alt: "Instalasi meter listrik dan perpipaan yang rapi dan terstandar",
+    caption: "Instalasi listrik rapi & terstandar",
+    category: "listrik",
+  },
+  {
+    type: "photo",
+    src: imgPlnVehicle,
+    alt: "Armada operasional tim siap ditugaskan ke lokasi pelanggan",
+    caption: "Armada operasional siap pakai",
+    category: "listrik",
+  },
+  {
+    type: "photo",
+    src: imgMotorIndustri,
+    alt: "Perbaikan motor listrik industri tiga fasa",
+    caption: "Motor listrik industri",
+    category: "mesin",
+  },
+  {
+    type: "photo",
+    src: imgAcScaffolding,
+    alt: "Teknisi di atas scaffolding menservis unit AC besar",
+    caption: "Servis AC besar dengan scaffolding",
+    category: "ac",
+  },
+  {
+    type: "photo",
+    src: imgPanelDistribusi,
+    alt: "Perawatan mesin alat berat dan genset",
+    caption: "Mesin alat berat & genset",
+    category: "mesin",
+  },
+  {
+    type: "photo",
+    src: imgServisAcCassette,
+    alt: "Dua teknisi menservis AC cassette kantor di atas tangga",
+    caption: "Servis AC kantor bersama tim",
+    category: "ac",
+  },
+  {
+    type: "photo",
+    src: imgServisAcIndoor,
+    alt: "Teknisi membongkar dan membersihkan AC indoor",
+    caption: "Bongkar & servis AC indoor",
+    category: "ac",
+  },
+  {
+    type: "photo",
+    src: imgPerawatanOutdoor,
+    alt: "Teknisi merawat outdoor unit AC di atas tangga",
+    caption: "Perawatan outdoor unit AC",
+    category: "ac",
+  },
+  {
+    type: "photo",
+    src: imgServisOutdoorMulti,
+    alt: "Teknisi memeriksa deretan outdoor unit AC multi-split",
+    caption: "Pengecekan outdoor unit multi-split",
+    category: "ac",
+  },
+  {
+    type: "photo",
+    src: imgAcMobil,
+    alt: "Perbaikan evaporator dan modul AC kendaraan",
+    caption: "Perbaikan AC mobil & kendaraan",
+    category: "ac",
+  },
+  {
+    type: "photo",
+    src: imgPemeliharaanTrafo,
+    alt: "Pemeliharaan jaringan listrik dan trafo dengan crane",
+    caption: "Pemeliharaan jaringan & trafo PLN",
+    category: "listrik",
+  },
+  {
+    type: "photo",
+    src: imgServisMotorGenset,
+    alt: "Teknisi menservis motor dan generator industri",
+    caption: "Servis motor & generator industri",
+    category: "mesin",
+  },
+  // ——— Tambahan dokumentasi dari folder reverensi ———
+  {
+    type: "photo",
+    src: imgPerbaikanMesin,
+    alt: "Teknisi mengerjakan perbaikan mesin industri besar",
+    caption: "Perbaikan mesin industri",
+    category: "mesin",
+  },
+  {
+    type: "photo",
+    src: imgOverhaulMesin,
+    alt: "Komponen blok mesin hasil pembongkaran untuk overhaul",
+    caption: "Overhaul & pembongkaran mesin",
+    category: "mesin",
+  },
+  {
+    type: "photo",
+    src: imgMeterPrabayar,
+    alt: "Meter listrik prabayar terpasang dengan token aktif",
+    caption: "Pemasangan meter listrik prabayar",
+    category: "listrik",
+  },
+  {
+    type: "photo",
+    src: imgCctvKantor,
+    alt: "Kamera CCTV terpasang mengawasi area kantor",
+    caption: "CCTV area kantor & ruko",
+    category: "keamanan",
+  },
+  {
+    type: "photo",
+    src: imgCctvMonitorDvr,
+    alt: "Monitor dan DVR CCTV untuk rekaman keamanan",
+    caption: "Setup monitor & DVR CCTV",
+    category: "keamanan",
+  },
+  {
+    type: "photo",
+    src: imgCctvDomeIndoor,
+    alt: "Kamera CCTV dome indoor terpasang di dinding",
+    caption: "Kamera dome indoor",
+    category: "keamanan",
+  },
+  {
+    type: "photo",
+    src: imgInstalasiCctv,
+    alt: "Instalasi kabel dan posisi kamera CCTV berjalan",
+    caption: "Instalasi titik kamera CCTV",
+    category: "keamanan",
+  },
+  {
+    type: "photo",
+    src: imgLasPipa,
+    alt: "Pengelasan pipa dan komponen mesin",
+    caption: "Las pipa & komponen mesin",
+    category: "las",
+  },
+  {
+    type: "photo",
+    src: imgFabrikasiBaja,
+    alt: "Pengelasan fabrikasi baja di ketinggian",
+    caption: "Fabrikasi baja di ketinggian",
+    category: "las",
+  },
+  {
+    type: "photo",
+    src: imgServisElektronik,
+    alt: "Instalasi dan perakitan box panel serta perkabelan listrik",
+    caption: "Perakitan box panel & kabel listrik",
+    category: "listrik",
+  },
+  {
+    type: "photo",
+    src: imgServisLaptop,
+    alt: "Perbaikan motherboard laptop di meja servis",
+    caption: "Servis laptop & motherboard",
+    category: "elektronik",
+  },
+  {
+    type: "photo",
+    src: imgBenchServis,
+    alt: "Meja servis elektronik dengan suku cadang dan perkakas",
+    caption: "Bench servis & suku cadang",
+    category: "elektronik",
+  },
+];
+
+/* -------------------------------- WHY US -------------------------------- */
 
 export const whyUs = [
   {
     icon: "badgecheck",
-    title: "Teknisi Bersertifikat",
-    description:
-      "Pengetahuan mendalam tentang sistem pendingin & tata udara, didukung keahlian teknis dan sertifikasi yang sesuai.",
+    title: "Bersertifikat",
+    description: "Ahli di bidangnya, bekerja sesuai standar K3.",
   },
   {
     icon: "clock",
     title: "Buka 24 Jam",
-    description:
-      "AC bocor tengah malam atau listrik bermasalah? Tim kami tetap siap datang, kapan pun.",
-  },
-  {
-    icon: "store",
-    title: "Workshop & Toko Sparepart Sendiri",
-    description:
-      "Terdapat workshop, toko sparepart, kantor, dan marketing — komponen tersedia, perbaikan lebih cepat.",
+    description: "Darurat tengah malam? Tetap kami layani.",
   },
   {
     icon: "shieldcheck",
     title: "Garansi Pengerjaan",
-    description:
-      "Tenang setelah servis. Setiap pekerjaan disertai garansi dari tim kami.",
+    description: "Ada kendala setelah kerja? Kami kembali gratis.",
   },
   {
-    icon: "receipttext",
+    icon: "wallet",
     title: "Harga Transparan",
-    description:
-      "Estimasi biaya disampaikan jelas di awal — tanpa biaya tersembunyi di akhir.",
-  },
-  {
-    icon: "building",
-    title: "Residensial hingga Industri",
-    description:
-      "Rumah, toko, kantor, gudang, hingga fasilitas produksi — semua tertangani.",
+    description: "Estimasi jelas di awal, tanpa biaya tersembunyi.",
   },
 ] as const;
 
-/* -------------------------------- PROCESS -------------------------------- */
+/* ------------------------------ TESTIMONIALS ----------------------------- */
 
-export const steps = [
+export const testimonials = [
   {
-    title: "Hubungi Kami",
-    description:
-      "Kirim pesan via WhatsApp atau telepon — ceritakan keluhan AC atau listrik Anda.",
+    name: "Rina Wulandari",
+    role: "Kalijati",
+    service: "Servis & Cuci AC",
+    quote:
+      "AC dingin lagi dalam sehari. Teknisinya tepat waktu, harganya sesuai kesepakatan.",
+    photo: avatarRina,
   },
   {
-    title: "Konsultasi & Estimasi",
-    description:
-      "Kami bantu diagnosis masalah dan berikan estimasi biaya yang jelas sebelum pengerjaan.",
+    name: "Hendra Gunawan",
+    role: "Cikampek",
+    service: "Naik Daya PLN",
+    quote:
+      "Naik daya listrik toko dibantu sampai beres. Prosesnya jelas, tidak ribet sama sekali.",
+    photo: avatarHendra,
   },
   {
-    title: "Pengerjaan Rapi",
-    description:
-      "Teknisi datang sesuai jadwal, bekerja rapi, aman, dan sesuai standar K3.",
+    name: "Dewi Anggraini",
+    role: "Subang Kota",
+    service: "Darurat 24 Jam",
+    quote:
+      "Malam-malam masih dilayani dan responsnya cepat. Hasil kerja rapi, sangat recommended.",
+    photo: avatarDewi,
   },
   {
-    title: "Testing & Garansi",
-    description:
-      "Hasil kerja diuji sebelum kami pergi, disertai garansi dan tips perawatan.",
+    name: "Bapak Solihin",
+    role: "Pamanukan",
+    service: "Perbaikan Pompa Air",
+    quote:
+      "Pompa air mati total malam itu, sebelum subuh sudah nyala lagi. Teknisinya ramah dan kerjanya bersih.",
+    photo: avatarSolihin,
+  },
+  {
+    name: "Siti Rahmawati",
+    role: "Tanjungsiang",
+    service: "Kelistrikan & Instalasi",
+    quote:
+      "Instalasi listrik rumah dikerjakan rapi, jalur kabel teratur. Semua dijelaskan detail sampai paham.",
+    photo: avatarSiti,
+  },
+  {
+    name: "Rizky Ramadhan",
+    role: "Cicadas",
+    service: "AC Mobil",
+    quote:
+      "AC mobil nggak dingin dari dulu, sekali servis langsung dingin lagi. Tidak ada biaya aneh-aneh.",
+    photo: avatarRizky,
+  },
+  {
+    name: "Yuyun Hartati",
+    role: "Purwakarta",
+    service: "Cat & Renovasi",
+    quote:
+      "Cat rumah dan perbaikan atap dikerjakan rapi, area kerja selalu dibersihkan setelah selesai. Puas banget.",
+    photo: avatarYuyun,
+  },
+  {
+    name: "Anisa Putri",
+    role: "Dawuan",
+    service: "CCTV & Keamanan",
+    quote:
+      "Pasang CCTV rumah cepat dan rapi, cara pakai aplikasinya diajarkan sampai bisa. Terima kasih, Mukundo!",
+    photo: avatarAnisa,
   },
 ] as const;
 
-/* ------------------------------- COVERAGE -------------------------------- */
+/* ---------------------------------- FAQ ---------------------------------- */
+
+export const faqs = [
+  {
+    question: "Bisa datang di hari yang sama?",
+    answer:
+      "Ya, untuk area Kalijati dan sekitarnya kami usahakan datang di hari yang sama. Kondisi darurat? Kami buka 24 jam.",
+  },
+  {
+    question: "Apakah pekerjaan bergaransi?",
+    answer:
+      "Ya. Jika keluhan yang sama muncul kembali dalam masa garansi, kami perbaiki tanpa biaya tambahan.",
+  },
+  {
+    question: "Berapa perkiraan biayanya?",
+    answer:
+      "Tergantung jenis pekerjaan. Kirim foto ke WhatsApp — estimasi diberikan jelas sebelum pengerjaan, tanpa biaya tersembunyi.",
+  },
+  {
+    question: "Bisa kerja komersial dan industri?",
+    answer:
+      "Bisa. Rumah, toko, kantor, gudang, hingga fasilitas produksi semuanya tertangani.",
+  },
+  {
+    question: "Area mana saja yang dilayani?",
+    answer:
+      "Kalijati, Subang, Cikampek, Purwakarta, Karawang, dan sekitarnya. Di luar daftar? Tanya saja via WhatsApp.",
+  },
+] as const;
+
+/* -------------------------------- COVERAGE ------------------------------- */
 
 export const coverageAreas = [
   "Kalijati",
@@ -286,64 +758,11 @@ export const coverageAreas = [
   "Sagalaherang",
 ] as const;
 
-/* ----------------------------- TESTIMONIALS ------------------------------ */
-/** Testimoni demo untuk keperluan presentasi — ganti dengan testimoni riil. */
+/* -------------------------------- PROCESS ------------------------------- */
 
-export const testimonials = [
-  {
-    initials: "RW",
-    name: "Rina Wulandari",
-    role: "Pemilik Rumah — Kalijati",
-    quote:
-      "AC kamar cepat dingin lagi setelah dicuci dan diisi freon. Teknisinya datang tepat waktu, penjelasannya jelas, dan harganya sesuai kesepakatan.",
-  },
-  {
-    initials: "HG",
-    name: "Hendra Gunawan",
-    role: "Pemilik Toko Bangunan — Cikampek",
-    quote:
-      "Naik daya listrik toko kami dibantu dari pengurusan sampai terpasang. Prosesnya dijelaskan step by step, jadi tidak ribet. Sangat membantu usaha.",
-  },
-  {
-    initials: "DA",
-    name: "Dewi Anggraini",
-    role: "Manajer Gudang — Subang",
-    quote:
-      "Cool storage kami dirawat rutin oleh tim Mukundo. Yang paling dihargai: saat ada kendala malam hari pun masih dilayani. Responsnya cepat.",
-  },
-] as const;
-
-/* ---------------------------------- FAQ ---------------------------------- */
-
-export const faqs = [
-  {
-    question: "Apakah bisa datang di hari yang sama?",
-    answer:
-      "Ya. Untuk area Kalijati dan sekitarnya, kami berusaha datang di hari yang sama. Untuk kondisi darurat, layanan kami buka 24 jam — hubungi kami kapan saja.",
-  },
-  {
-    question: "Apakah pekerjaan bergaransi?",
-    answer:
-      "Setiap pekerjaan disertai garansi. Jika keluhan yang sama muncul kembali dalam masa garansi, kami perbaiki tanpa biaya tambahan.",
-  },
-  {
-    question: "Berapa perkiraan biaya servis AC?",
-    answer:
-      "Biaya tergantung jenis layanan dan kapasitas unit (½ PK hingga 5 PK ke atas). Tim kami memberikan estimasi transparan sebelum pengerjaan — tanpa biaya tersembunyi.",
-  },
-  {
-    question: "Apakah melayani AC komersial dan industri?",
-    answer:
-      "Ya. Selain AC rumahan (split, window, cassette), kami menangani standing floor, cool storage, hingga mini chiller untuk gudang, kantor, dan fasilitas produksi.",
-  },
-  {
-    question: "Bagaimana proses pasang baru / naik daya listrik PLN?",
-    answer:
-      "Kami membantu dari pengurusan administrasi ke PLN, pemasangan material, hingga unit meter terpasang dan siap digunakan. Anda cukup menyiapkan e-KTP dan bukti kepemilikan tempat.",
-  },
-  {
-    question: "Area mana saja yang dicakup?",
-    answer:
-      "Kami berbasis di Kalijati, Kabupaten Subang, dan melayani Subang kota, Cikampek, Purwakarta, Karawang, serta sekitarnya. Lokasi Anda di luar daftar? Hubungi kami untuk cek ketersediaan.",
-  },
+export const steps = [
+  { title: "Chat WhatsApp", description: "Ceritakan masalah Anda." },
+  { title: "Estimasi", description: "Biaya jelas sebelum kerja." },
+  { title: "Pengerjaan", description: "Teknisi datang & bereskan." },
+  { title: "Garansi", description: "Diuji & bergaransi." },
 ] as const;

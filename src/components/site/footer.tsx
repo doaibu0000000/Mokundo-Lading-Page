@@ -1,111 +1,102 @@
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
-import { navLinks, site } from "@/config/site";
-import { Logo } from "./logo";
-
-const serviceLinks = [
-  "Cuci & Perawatan AC",
-  "Perbaikan & Instalasi AC",
-  "Cool Storage & Mini Chiller",
-  "Pasang Baru & Naik Daya PLN",
-  "Instalasi Kelistrikan",
-];
+import Image from "next/image";
+import { Clock3, MapPin, Phone } from "lucide-react";
+import { images, navLinks, site } from "@/config/site";
+import { CopyPhoneButton } from "./copy-phone";
+import { SaveContactButton } from "./save-contact";
+import { ShareButton } from "./share-button";
 
 export function Footer() {
-  const year = new Date().getFullYear();
-
   return (
-    <footer className="mt-auto bg-stone-950 text-stone-400">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr] lg:px-8">
-        <div>
-          <a
-            href="#beranda"
-            className="inline-block outline-none focus:outline-none focus-visible:outline-none focus:ring-0 select-none"
-            aria-label={`${site.name} — kembali ke beranda`}
-          >
-            <Logo idPrefix="ftr" className="text-white" />
-          </a>
-          <p className="mt-5 max-w-sm text-sm leading-relaxed">
-            {site.description}
-          </p>
-          <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-bold text-emerald-300">
-            <Clock className="h-3.5 w-3.5" aria-hidden />
-            {site.hours}
-          </p>
-        </div>
+    <footer id="kontak" className="scroll-mt-24 bg-slate-950 text-slate-300" aria-label="Kontak dan footer">
+      {/* Garis gradien aksen di paling atas footer */}
+      <div aria-hidden="true" className="h-px w-full bg-gradient-to-r from-transparent via-orange-500/50 to-transparent" />
+      <div className="mx-auto max-w-7xl px-4 pb-10 pt-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="relative block h-11 w-11">
+                <Image
+                  src={images.logo}
+                  alt={`Logo ${site.name}`}
+                  fill
+                  sizes="44px"
+                  className="object-contain"
+                />
+              </span>
+              <div className="leading-tight">
+                <p className="text-base font-extrabold tracking-tight text-white">MUKUNDO</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-400">
+                  Teknologi Indonesia
+                </p>
+              </div>
+            </div>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
+              Jasa perbaikan &amp; instalasi serba ada — dari AC dan kelistrikan
+              hingga mesin, kendaraan, dan bangunan. Melayani Kalijati, Subang &amp; sekitarnya.
+            </p>
+            {/* Tombol "Chat WhatsApp" dihapus (permintaan pemilik, Task 17):
+                nomor WA sudah dijangkau lewat tombol melayang + CTA lain,
+                footer dibuat bersih & profesional. */}
+            <div className="mt-6 flex flex-wrap items-center gap-2.5">
+              <SaveContactButton className="h-11 border-white/20 px-4 text-slate-200 hover:border-orange-400/60 hover:text-orange-300" />
+              <ShareButton className="h-11 border-white/20 px-4 text-slate-200 hover:border-orange-400/60 hover:text-orange-300" />
+            </div>
+          </div>
 
-        <nav aria-label="Layanan footer">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-            Layanan
-          </h3>
-          <ul className="mt-5 space-y-3 text-sm">
-            {serviceLinks.map((label) => (
-              <li key={label}>
+          {/* Kontak */}
+          <div>
+            <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">Kontak</h3>
+            <ul className="mt-5 space-y-4 text-sm">
+              <li className="flex items-start gap-3">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-orange-400" aria-hidden="true" />
                 <a
-                  href="#layanan"
-                  className="transition-colors hover:text-orange-400"
+                  href={site.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="leading-relaxed transition-colors hover:text-white"
                 >
-                  {label}
+                  {site.address}
                 </a>
               </li>
-            ))}
-          </ul>
-        </nav>
+              <li className="flex flex-wrap items-center gap-3">
+                <Phone className="h-4 w-4 shrink-0 text-orange-400" aria-hidden="true" />
+                <a href={`tel:+${site.whatsappNumber}`} className="transition-colors hover:text-white">
+                  {site.phoneDisplay}
+                </a>
+                <CopyPhoneButton className="h-7 border-white/20 px-3 text-[11px] text-slate-300 hover:border-orange-400/60 hover:text-orange-300" />
+              </li>
+              <li className="flex items-center gap-3">
+                <Clock3 className="h-4 w-4 shrink-0 text-orange-400" aria-hidden="true" />
+                <span>{site.hours}</span>
+              </li>
+            </ul>
+          </div>
 
-        <nav aria-label="Navigasi footer" className="hidden sm:block">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-            Navigasi
-          </h3>
-          <ul className="mt-5 space-y-3 text-sm">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="transition-colors hover:text-orange-400"
-                >
-                  {link.label}
+          {/* Navigasi — disembunyikan di tampilan mobile (permintaan pemilik):
+              di HP footer jadi pendek & fokus kontak; navigasi tersedia via menu hamburger header. */}
+          <nav aria-label="Navigasi footer" className="hidden md:block">
+            <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">Navigasi</h3>
+            <ul className="mt-5 space-y-3 text-sm">
+              <li>
+                <a href="#pesan" className="font-bold text-orange-400 transition-colors hover:text-orange-300">
+                  Pesan Cepat — Isi Form 30 Detik
                 </a>
               </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div>
-          <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-            Kontak
-          </h3>
-          <ul className="mt-5 space-y-4 text-sm">
-            <li className="flex items-start gap-3">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-orange-400" aria-hidden />
-              <span className="leading-relaxed">{site.address.full}</span>
-            </li>
-            <li>
-              <a
-                href={`mailto:${site.email}`}
-                className="flex items-center gap-3 transition-colors hover:text-orange-400"
-              >
-                <Mail className="h-4 w-4 shrink-0 text-orange-400" aria-hidden />
-                {site.email}
-              </a>
-            </li>
-            <li>
-              <a
-                href={`tel:+${site.whatsappNumber}`}
-                className="flex items-center gap-3 transition-colors hover:text-orange-400"
-              >
-                <Phone className="h-4 w-4 shrink-0 text-orange-400" aria-hidden />
-                {site.phoneDisplay}
-              </a>
-            </li>
-          </ul>
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="transition-colors hover:text-white">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
-      </div>
 
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-xs text-stone-500 sm:flex-row sm:px-6 lg:px-8">
-          <p>
-            © {year} {site.name}. Seluruh hak cipta dilindungi.
-          </p>
-          <p>{site.tagline} — Kalijati, Kabupaten Subang</p>
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row">
+          <p>© {new Date().getFullYear()} {site.name}. Seluruh hak cipta dilindungi.</p>
+          <p className="font-semibold text-slate-400">{site.hours}</p>
         </div>
       </div>
     </footer>

@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 
+/** Ikon WhatsApp resmi (brand SVG), karena lucide tidak menyediakan ikon brand. */
 export function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg

@@ -1,134 +1,52 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { waLink } from "@/config/site";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { site, waLink } from "@/config/site";
 import { WhatsAppIcon } from "./whatsapp-icon";
 
 /**
- * Tombol WhatsApp mengambang dengan animasi interaktif profesional:
- * - Muncul otomatis saat hero CTA di-scroll lewat (IntersectionObserver)
- * - Efek radar ping & ambient glow bernapas lembut
- * - Micro-interaction floating buoyant + periodic nudge ramah
- * - Status indikator "Online 24 Jam"
- * - Tooltip premium glassmorphism dengan arrow
+ * Tombol WhatsApp bulat mengambang — SATU-satunya tombol WA melayang.
+ * Muncul setelah halaman digulir ke bawah (sesuai permintaan pemilik),
+ * dengan cincin glow hijau khas. Bukan asisten AI — langsung wa.me.
  */
 export function FloatingWhatsApp() {
   const [visible, setVisible] = useState(false);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
-    const heroBtn = document.getElementById("hero-cta-wa");
-
-    // Jika elemen tidak ditemukan, tampilkan floating button secara aman
-    if (!heroBtn) {
-      const id = requestAnimationFrame(() => setVisible(true));
-      return () => cancelAnimationFrame(id);
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setVisible(!entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-
-    observer.observe(heroBtn);
-    return () => observer.disconnect();
+    const onScroll = () => setVisible(window.scrollY > 420);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.6, y: 24 }}
+        <motion.a
+          href={waLink()}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Chat ${site.name} via WhatsApp`}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.5, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.6, y: 24 }}
-          transition={{ type: "spring", stiffness: 260, damping: 20 }}
-          className="group fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-4 z-40 sm:right-6"
+          exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.5, y: 20 }}
+          transition={{ duration: reduce ? 0 : 0.25, ease: "easeOut" }}
+          className="group fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#25d366] to-[#1faa53] text-white shadow-[0_12px_32px_-6px_rgba(31,170,83,0.7)] transition-transform duration-150 hover:scale-105 active:scale-95 md:bottom-7 md:right-7 md:h-16 md:w-16"
         >
-          {/* Wrapper Buoyant Float + Periodic Nudge */}
-          <motion.div
-            animate={{
-              y: [0, -6, 0],
-              rotate: [0, 0, 0, -4, 4, -3, 2, 0, 0],
-            }}
-            transition={{
-              y: {
-                duration: 3.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              },
-              rotate: {
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-                times: [0, 0.7, 0.74, 0.78, 0.82, 0.86, 0.9, 0.94, 1],
-              },
-            }}
-            className="relative flex items-center"
-          >
-            {/* Ambient Breathing Glow */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -inset-2 -z-10 rounded-full bg-[#25D366]/40 blur-xl animate-pulse"
-            />
-
-            {/* Radar Wave Ping */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 -z-10 animate-ping rounded-full bg-[#25D366] opacity-35"
-              style={{ animationDuration: "2.5s" }}
-            />
-
-            {/* Tooltip Premium Glassmorphism */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute right-full top-1/2 mr-3.5 -translate-y-1/2 hidden whitespace-nowrap rounded-2xl border border-white/15 bg-stone-950/90 px-4 py-2.5 shadow-2xl shadow-black/80 backdrop-blur-xl opacity-0 translate-x-2 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-x-0 sm:block"
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-80" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                </span>
-                <div className="flex flex-col">
-                  <span className="text-xs font-bold text-white leading-tight">
-                    Chat WhatsApp Sekarang
-                  </span>
-                  <span className="text-[10px] font-medium text-emerald-300 leading-tight">
-                    Online 24 Jam · Balas Cepat
-                  </span>
-                </div>
-              </div>
-
-              {/* Caret / Panah segitiga ke arah tombol */}
-              <div className="absolute top-1/2 -right-1.5 h-3 w-3 -translate-y-1/2 rotate-45 border-r border-t border-white/15 bg-stone-950/90" />
-            </div>
-
-            {/* Tombol Utama WhatsApp */}
-            <motion.a
-              href={waLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              tabIndex={0}
-              aria-label="Chat WhatsApp dengan Mukundo Teknologi Indonesia"
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.94 }}
-              className="relative grid h-14 w-14 place-items-center overflow-hidden rounded-full bg-gradient-to-tr from-[#1ebd5b] via-[#25D366] to-[#4ae884] text-white shadow-[0_10px_25px_-5px_rgba(37,211,102,0.5),0_8px_10px_-6px_rgba(37,211,102,0.3)] ring-4 ring-white/20 transition-all duration-300 hover:ring-white/40 hover:shadow-[0_15px_35px_-5px_rgba(37,211,102,0.7)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-500"
-            >
-              {/* Kilauan Glass Refleksi di atas tombol */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/35 via-transparent to-transparent"
-              />
-
-              {/* Icon dengan subtle tilt saat hover */}
-              <motion.div
-                whileHover={{ rotate: [0, -8, 8, -4, 0] }}
-                transition={{ duration: 0.4 }}
-              >
-                <WhatsAppIcon className="h-7 w-7 drop-shadow" />
-              </motion.div>
-            </motion.a>
-          </motion.div>
-        </motion.div>
+          {/* Glow luar lembut */}
+          <span
+            aria-hidden="true"
+            className="absolute -inset-1.5 rounded-full bg-[#25d366]/45 blur-md"
+          />
+          {/* Denyut cincin halus */}
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 animate-ping rounded-full bg-[#25d366] opacity-25 [animation-duration:2.4s]"
+          />
+          <WhatsAppIcon className="relative h-7 w-7 md:h-8 md:w-8" />
+        </motion.a>
       )}
     </AnimatePresence>
   );

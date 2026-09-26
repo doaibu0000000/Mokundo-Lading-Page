@@ -1,0 +1,292 @@
+     1→---
+     2→Task ID: 1
+     3→Agent: Z.ai Code (main)
+     4→Task: Membangun landing page profesional Mukundo Teknologi Indonesia berdasarkan referensi https://github.com/doaibu0000000/Mokundo-Lading-Page
+     5→
+     6→Work Log:
+     7→- Clone repo referensi ke /tmp/mokundo-ref dan audit seluruh isi folder "reverensi mokundo" (15 file: 13 foto WhatsApp/webp + logo + 1 video).
+     8→- Identifikasi tiap gambar: servis AC scaffolding, brazing kompresor, briefing K3, armada PLN, instalasi listrik rapi, meter prabayar, motor industri (avfadsf), trafo PLN (vsdvsd), AC mobil (zxcbzxcb), alat berat/genset (WA 17.02.13), panel PLN (WA 17.02.12), workshop (fvasdfadsvcf, fdgsdfg), video inspeksi atap gudang, logo.
+     9→- Salin semua 15 file ke public/images dengan nama bersih (motor-industri.jpeg, trafo-listrik.jpeg, ac-mobil.jpeg, alat-berat-genset.jpeg, panel-pln.jpeg, workshop-1.jpeg, workshop-2.jpeg, video-atap.mp4, dll).
+    10→- Generate poster video (video-atap-poster.jpg) via ffmpeg pada frame 8s.
+    11→- Trim bar hitam foto motor-industri.jpeg menggunakan sharp (1600px → 756px tinggi).
+    12→- Membuat src/config/site.ts — seluruh data bisnis terpusat (WA 6281221944007, alamat Jl. Raya Kalijati Timur No.17, 9 layanan, 14 item galeri, stats, marquee, steps).
+    13→- Membuat komponen di src/components/site/: header (sticky glass + Sheet mobile), hero (kolase foto asli + badge + 2 CTA), marquee (strip berjalan semua jasa, dua strip identik loop mulus), stats-bar, services (9 kartu + kartu oranye "Butuh yang lain?"), statement (banner navy "Semua Jasa Perbaikan. Satu Nomor WhatsApp."), gallery (masonry columns, lightbox Dialog, video inline dengan tombol play), why-us, process (4 langkah), cta-banner, footer (navy, sticky-bottom via flex mt-auto), floating-whatsapp (bukan AI — hanya deep link wa.me), reveal (framer-motion), whatsapp-icon (SVG resmi).
+    14→- Rakit src/app/page.tsx (urutan: Hero → StatsBar → Marquee → Services → Statement → Gallery → WhyUs → Process → CtaBanner → Footer) + layout.tsx metadata Indonesia + globals.css (animasi marquee, scrollbar custom, selection orange).
+    15→- Perbaikan hasil QA: import Button di footer, aria-label duplikat di process, trim foto motor, aria-describedby={undefined} pada DialogContent, loading="eager" hero image, refactor marquee loop.
+    16→
+    17→Stage Summary:
+    18→- ✅ Landing page selesai & terverifikasi agent-browser (desktop 1280px + mobile 375px).
+    19→- ✅ SEMUA 15 file referensi dipakai: 13 foto (hero + galeri), 1 video (galeri, bisa diputar), 1 logo (header + footer). Tidak ada foto AI.
+    20→- ✅ Pesan inti sesuai permintaan: teks minimal, "Semua Jasa Perbaikan — Satu Nomor WhatsApp", bukan hanya AC & listrik.
+    21→- ✅ Tanpa asisten AI; semua CTA mengarah ke wa.me/6281221944007 dengan pesan terisi otomatis.
+    22→- ✅ Footer menempel di bawah (flex min-h-screen + flex-1 main), responsif penuh, lint bersih, dev.log 200 OK.
+    23→- Konfigurasi bisnis terpusat di src/config/site.ts untuk perubahan mudah.
+    24→
+    25→---
+    26→Task ID: 2 (cron webDevReview #1)
+    27→Agent: Z.ai Code (cron agent)
+    28→Task: QA menyeluruh + peningkatan styling & fitur baru (ronde v2)
+    29→
+    30→Work Log:
+    31→- QA browser dari awal (restart browser total): 0 error/warning console — warning "DialogContent" & "LCP" sebelumnya ternyata buffer console sesi lama; keduanya sudah teratasi di Task 1.
+    32→- SEO & share:
+    33→  - Buat og-image.jpg 1200x630 dari foto asli instalasi-listrik-rapi.webp (sharp, crop "attention") — tanpa AI.
+    34→  - Metadata lengkap: openGraph + twitter card + metadataBase; JSON-LD LocalBusiness (alamat, geo, jam 24/7, telepon) di layout.tsx.
+    35→- Fitur baru:
+    36→  - Kartu layanan kini bisa diklik → wa.me dengan pesan otomatis PER-LAYANAN (field waMessage di site.ts); ikon WA kecil di tiap kartu + hint "Pesan via WhatsApp →" saat hover + efek shine sweep.
+    37→  - Section Testimoni (#testimoni): 3 ulasan singkat, bintang 5, avatar inisial, quote icon.
+    38→  - Section FAQ (#faq): accordion shadcn 5 pertanyaan singkat + kotak CTA "dijawab manusia, bukan bot" → WA.
+    39→  - Section Area Layanan: chips 8 wilayah (Kalijati…Sagalaherang) + "+ Sekitarnya".
+    40→  - Scroll progress bar oranye tipis di atas layar (framer-motion useScroll + spring).
+    41→  - Mobile quickbar: bar lengket bawah (Telepon + Chat WhatsApp) khusus < md; floating WA circle kini desktop-only; footer pb-28 di mobile agar tak tertutup bar.
+    42→  - Back-to-top button (desktop, muncul setelah 600px scroll, pojok kiri bawah).
+    43→  - Badge "{14} Dokumentasi Lapangan" di galeri.
+    44→  - Nav & footer ditambah link Testimoni + FAQ.
+    45→- Verifikasi agent-browser: 12 section berurutan benar, accordion terbuka/tertutup, quickbar mobile 2 tombol, floating WA hidden di mobile, footer pb=112px mobile, JSON-LD ter-render, 10 link WA per-layanan benar, og-image HTTP 200, lint exit 0, console 0 warning.
+    46→
+    47→Stage Summary:
+    48→- Landing page v2 selesai: lebih profesional, konversi lebih kuat (klik kartu = chat WA siap kirim), SEO lokal siap Google.
+    49→- Tidak ada bug terbuka; tidak ada foto AI ditambahkan; tidak ada asisten AI.
+    50→- Risiko/next: metadataBase memakai domain placeholder https://mukundoteknologi.com — ganti saat domain riil tersedia; testimoni masih demo (perlu ulasan pelanggan asli dari pemilik); video 3.1MB bisa dikompres ulang bila hosting final lambat.
+    51→
+    52→---
+    53→Task ID: 3 (cron webDevReview #2)
+    54→Agent: Z.ai Code (cron agent)
+    55→Task: QA + optimasi performa video + galeri interaktif (filter, lightbox nav) + nav-highlight + animasi hero + PWA-lite (ronde v3)
+    56→
+    57→Work Log:
+    58→- QA awal: server 200, lint bersih, 12 section & 17 img ter-render, console bersih setelah restart browser.
+    59→- Performa:
+    60→  - Kompres video-atap.mp4 via ffmpeg (H.264 crf 28 veryfast, faststart, buang audio): 3.1MB -> 0.9MB (-71%).
+    61→  - Video galeri preload="none" + poster (hemat bandwidth mobile).
+    62→- Fitur galeri interaktif:
+    63→  - Filter kategori chips: Semua(13) / AC / Listrik & PLN / Mesin & Alat Berat / Bangunan / Workshop — field category per item di site.ts; video otomatis pause saat ganti filter (tanpa setState-in-effect, pola ramah React Compiler).
+    64→  - Lightbox: tombol prev/next + navigasi keyboard (ArrowLeft/Right/Escape) + counter "n / total" + caption besar.
+    65→  - Perbaikan UX mobile: caption foto sekarang SELALU terlihat di layar sentuh (sebelumnya hanya muncul saat hover, tidak bisa diakses di HP).
+    66→- Header: nav aktif mengikuti section terlihat (IntersectionObserver, garis oranye + aria-current) — juga berlaku di menu mobile.
+    67→- Hero: animasi entrance stagger (badge -> judul -> sub -> CTA -> trust list) via framer-motion variants + foto visual scale-in; hormati prefers-reduced-motion.
+    68→- PWA-lite: manifest.webmanifest + ikon 192/512 + apple-touch-icon 180 (semua dari logo asli, bukan AI); metadata manifest + apple icon di layout.
+    69→- Bug-bug ditemukan & diperbaiki:
+    70→  - Warning LCP false-positive next/image: foto hero duplikat di galeri menimpa entri internal map (src sama, loading lazy) -> foto hero kini eksklusif di hero; console menjadi 100% bersih.
+    71→  - 2 error lint React Compiler (preserve-manual-memoization, set-state-in-effect) -> refactor handler next/prev tanpa useCallback + reset video di event handler, bukan di effect.
+    72→- Verifikasi akhir: filter bekerja (Listrik & PLN = 6 item), lightbox navigasi 2x + keyboard (3/6 -> 4/6), Escape menutup, manifest HTTP 200, video 911997 byte HTTP 200, lint exit 0, console 0 error 0 warning.
+    73→
+    74→Stage Summary:
+    75→- Landing page v3: performa lebih baik (video -71%, preload none), galeri kini interaktif & dapat dieksplorasi, navigasi lebih hidup (nav-highlight + animasi hero), siap dipasang ke home screen Android/iOS.
+    76→- Semua foto/video tetap 100% asli dari folder referensi; tanpa AI assistant; semua CTA ke WA 6281221944007.
+    77→- Risiko/next: domain placeholder di metadataBase belum diganti; testimoni demo perlu ulasan asli; bisa pertimbangkan kompresi lebih agresif bila hosting lambat; peta lokasi embed (iframe Google Maps) belum ada — kandidat fitur berikutnya di section kontak.
+    78→
+    79→---
+    80→Task ID: 4 (cron webDevReview #3)
+    81→Agent: Z.ai Code (cron agent)
+    82→Task: QA + section Lokasi (peta Google Maps, jam live, salin alamat) + stats count-up + FAQ JSON-LD + polish styling (ronde v4)
+    83→
+    84→Work Log:
+    85→- QA awal: server 200, lint bersih, 0 error/warning console, 0 gambar rusak, semua section & 18 link WA OK. Link nav "Kontak" → footer id="kontak" (by design, bukan bug).
+    86→- FITUR BARU — Section Lokasi (#lokasi, komponen location.tsx):
+    87→  - Embed Google Maps TANPA API key (mapsEmbedUrl di site.ts, output=embed) — terverifikasi menampilkan pin bisnis asli "Mukundo Teknologi Indonesia" di Kalijati; iframe lazy-load + allowFullScreen + caption alamat.
+    88→  - Kartu alamat dengan tombol "Salin Alamat" (clipboard API + fallback execCommand; feedback "Tersalin!" 2 detik) + "Petunjuk Arah" (site.mapsUrl).
+    89→  - Kartu jam operasional dengan badge live "BUKA SEKARANG" (dot ping hijau) + jam real-time WIB (Intl.DateTimeFormat Asia/Jakarta, update 30s; SSR placeholder "--.--" aman dari hydration mismatch).
+    90→  - Kartu CTA oranye "Butuh teknisi sekarang juga?" (WA + Telepon) dengan tekstur titik.
+    91→- FITUR — Stats count-up (komponen count-up.tsx): angka animasi hitung naik saat masuk viewport (framer-motion animate; "2.500+"→2500 format id-ID, "15+", "100%"; "24/7" dirender statis via whitelist suffix). Tabular-nums anti-layout-shift. Reduced motion → duration 0 (sekalian memenuhi lint react-hooks/set-state-in-effect: setState hanya dalam callback animate).
+    92→- SEO — JSON-LD FAQPage di faq.tsx (5 pertanyaan, terverifikasi bersama LocalBusiness di DOM).
+    93→- STYLING DETAIL:
+    94→  - SectionHeading: kicker kini diapit garis gradien oranye (center) — konsisten di semua section.
+    95→  - Testimoni: garis aksen gradien oranye scale-x saat hover + avatar ring oranye + quote icon memudar masuk.
+    96→  - CTA banner & kartu lokasi: tekstur dot-grid halus (radial-gradient pattern).
+    97→  - Footer: garis gradien oranye di tepi atas footer.
+    98→  - StatsBar: hover tint oranye per sel.
+    99→- FIX RESPONSIF — header nav jadi 7 link: nav desktop digeser md: → lg: (px-3, gap-0.5; xl kembali px-4/gap-1). Terverifikasi 1024px: 7 link muat tanpa overflow, hamburger hidden; di bawah 1024px hamburger muncul; scrollWidth = viewport (tidak ada horizontal scroll).
+   100→- page.tsx: <Location /> disisipkan antara Coverage dan CtaBanner. navLinks: tambah "Lokasi" (header + footer + menu mobile + nav-highlight otomatis ikut).
+   101→- Verifikasi akhir agent-browser: section #lokasi render (desktop 1280 + mobile 375 + 1024), peta iframe tampil, badge + jam WIB live, anchor #lokasi scroll benar, count-up nilai akhir 2.500+/15+/100%, JSON-LD LocalBusiness+FAQPage, 19 link WA, lint exit 0, console 0 error 0 warning.
+   102→- Catatan QA: tombol "Salin Alamat" tidak bisa diverifikasi sukses di headless (izin clipboard nonaktif, execCommand=false) — KODE BENAR: di browser nyata clipboard API berfungsi pada gesture pengguna, fallback legacy tersedia, dan kegagalan didegradasi dengan diam (tanpa feedback palsu).
+   103→
+   104→Stage Summary:
+   105→- Landing page v4: kini punya titik kontak fisik yang lengkap (peta + arah + salin alamat + status buka live), statistik hidup (count-up), dan schema FAQ untuk rich results Google.
+   106→- Semua foto/video tetap 100% asli folder referensi; tanpa AI assistant; semua CTA ke wa.me/6281221944007; konten terpusat di src/config/site.ts.
+   107→- Risiko/next: metadataBase masih placeholder (ganti saat domain riil); testimoni masih demo; peta embed bergantung Google Maps service (jika hosting final memblokir, ganti dengan screenshot statis + link); tombol salin alamat perlu cek manual di device asli; kandidat berikutnya: galeri before/after slider, dark mode, atau kompresi gambar AVIF.
+   108→
+   109→---
+   110→Task ID: 5 (cron webDevReview #4)
+   111→Agent: Z.ai Code (cron agent)
+   112→Task: QA menyeluruh + fitur baru Formulir Pesan Cepat + optimasi WebP + polish styling (ronde v5)
+   113→
+   114→Work Log:
+   115→- QA awal (browser fresh): server 200, lint bersih, 8 section + footer ter-render, 0 gambar rusak, 19 link WA, tanpa horizontal scroll (desktop 1280 + mobile 375), console 0 error 0 warning. Filter galeri, lightbox (counter/prev/next/Escape), FAQ accordion — semua berfungsi. Tidak ada bug prioritas; lanjut ke fitur baru.
+   116→- FITUR BARU — Section Formulir Pesan Cepat (#pesan, komponen quote-form.tsx, disisipkan antara Coverage dan Location):
+   117→  - Layout split: kolom kiri sticky (heading + 3 poin manfaat + kartu "Terkirim langsung ke +62 812-2194-4007"), kolom kanan kartu form (aksen gradien oranye di tepi atas + tekstur titik).
+   118→  - 4 field: Nama* (Input + ikon), Jenis Layanan* (Select 9 layanan + "Lainnya / belum yakin"), Wilayah (Select 8 wilayah + "Di luar daftar"), Catatan (Textarea opsional).
+   119→  - Validasi inline (role=alert, aria-invalid, error menghilang saat mengetik/memilih), tombol submit menyusun pesan WhatsApp terstruktur (Nama/Layanan/Wilayah/Catatan) dan membuka wa.me/6281221944007 — TANPA AI, tanpa backend, tanpa data tersimpan.
+   120→  - Footer nav: link oranye "Pesan Cepat — Isi Form 30 Detik" (#pesan) khusus footer (header nav sengaja tidak ditambah — sudah 7 link, rawan overflow di lg).
+   121→- FITUR/PERF — Konversi 7 foto jpeg → WebP q80 via sharp (motor-industri, trafo-listrik, ac-mobil, alat-berat-genset, panel-pln, workshop-1/2): 1031KB → 758KB (-26%); import site.ts diperbarui, jpeg lama dihapus; 14 gambar webp ter-render di DOM, 0 rusak. Foto tetap 100% asli referensi (rekompresi, bukan AI).
+   122→- STYLING DETAIL:
+   123→  - Hero: 2 kartu mengambang (Respon ±30 Menit & 2.500+ Proyek) kini berosilasi pelan via framer-motion (mati otomatis saat prefers-reduced-motion); lingkaran putus-putus oranye berputar 40s di belakang foto.
+   124→  - Hero fix overlap: kartu "2.500+ Proyek" dinaikkan bottom-16 → bottom-28 agar tidak tertutup tombol WA mengambang pada scroll 0 desktop.
+   125→  - Statement: teks "Satu Nomor WhatsApp." kini gradien oranye-amber dengan animasi shimmer (motion-safe, bg-clip-text).
+   126→  - Testimoni: kartu tengah tampil "featured" terangkat + ring oranye di lg; dekorasi blur blob oranye/biru lembut di latar section.
+   127→  - Services: ikon kartu kini gradien slate→oranye saat hover + ikon scale-110 + shadow oranye.
+   128→  - globals.css: keyframes shimmer-text; html scroll-behavior smooth kini dimatikan saat prefers-reduced-motion (a11y).
+   129→- BUG ditemukan & diperbaiki saat QA form:
+   130→  - Select placeholder tak muncul (sentinel value) → perbaiki; lanjut ke warning React "controlled ↔ uncontrolled" → solusi final: Select sengaja uncontrolled, state React hanya cerminan untuk validasi & pesan WA (0 warning).
+   131→  - SelectTrigger wilayah tanpa id → label tidak terhubung (a11y) → tambah id="quote-area".
+   132→  - setService tak sengaja terhapus saat refactor → dicek ulang & dipulihkan (form terbukti menyusun URL benar).
+   133→- Verifikasi akhir agent-browser: 9 anchor section berurutan (…faq → pesan → lokasi), form 4 field, submit kosong → 2 error tampil; submit terisi → window.open ke wa.me/6281221944007 dengan pesan lengkap ter-susun (nama/layanan/wilayah/catatan), pilih dropdown Motor & Mesin OK, 19 link WA, 14 webp, 0 gambar rusak, tanpa horizontal scroll, console 0 error 0 warning (fresh buffer), lint exit 0, dev.log 200.
+   134→
+   135→Stage Summary:
+   136→- Landing page v5: kini punya jalur konversi terstruktur (form 30 detik → WA tersusun rapi) di samping CTA langsung; aset foto lebih ringan 26%; detail motion & styling makin halus dan tetap hormat reduced-motion.
+   137→- Semua foto/video tetap 100% asli folder referensi (webp = rekompresi asli, BUKAN foto AI); tanpa asisten AI; semua CTA ke wa.me/6281221944007; konten tetap terpusat di src/config/site.ts.
+   138→- Risiko/next: metadataBase masih placeholder (ganti saat domain riil); testimoni masih demo (minta ulasan asli pemilik); salin alamat perlu cek manual di device asli; kandidat berikutnya: dark mode, galeri before/after (butuh foto pasangan asli dari pemilik), atau kompresi video lebih agresif bila hosting lambat.
+   139→
+   140→---
+   141→Task ID: 6 (cron webDevReview #5)
+   142→Agent: Z.ai Code (cron agent)
+   143→Task: QA + FITUR UTAMA Dark Mode (next-themes) + skip-link a11y + AVIF image format (ronde v6)
+   144→
+   145→Work Log:
+   146→- QA awal (browser fresh): server 200, lint bersih, 9 anchor section, 0 gambar rusak, 19 link WA, tanpa horizontal scroll, console bersih. Tidak ada bug prioritas → lanjut fitur besar.
+   147→- FITUR UTAMA — DARK MODE (next-themes, sudah ada di package.json):
+   148→  - theme-provider.tsx: ThemeProvider attribute="class", defaultTheme="light", enableSystem (pengunjung baru = light; ikuti preferensi OS bila di-set), disableTransitionOnChange.
+   149→  - theme-toggle.tsx: tombol Sun/Moon di header (desktop + mobile sheet area) — ikon dianimasikan via varian dark: CSS murni (tanpa kedip hydration); status mounted via useSyncExternalStore (bukan setState-in-effect → lolos react-hooks lint React Compiler).
+   150→  - layout.tsx dibungkus ThemeProvider; html sudah suppressHydrationWarning.
+   151→  - Penerapan varian dark: di 14 komponen: header (glass gelap, nav, menu Sheet), page.tsx (root bg-white→dark:bg-slate-950), hero (bg, grid decor redup, badge, teks, outline button, kartu mengambang, border foto), StatsBar, Services (kartu, ikon tile dark:from-slate-800 + ring, shine, teks), Gallery (chips filter, tombol lightbox prev/next/close dark), WhyUs, Testimoni (kartu featured), FAQ (accordion, CTA box), Process (nomor lingkaran inverse putih), Coverage (chips, "+ Sekitarnya" inverse), QuoteForm (kartu form, input/select/textarea dark + [color-scheme:dark] + placeholder), Location (kartu, tombol, badge BUKA hijau terang, peta tetap), CtaBanner wrapper, MobileQuickbar, BackToTop, SectionHeading (dark param aware).
+   152→  - Statement: dark:bg-black agar tetap kontras di antara section slate-900/950.
+   153→- FITUR A11Y — Skip link "Langsung ke konten utama" di page.tsx: sr-only, muncul fixed top-left saat keyboard focus (terverifikasi visible saat .focus()).
+   154→- PERF — next.config.ts: images.formats ["image/avif","image/webp"] → next/image kini bisa menyajikan AVIF yang lebih kecil.
+   155→- QA dark mode via agent-browser (screenshot per section, desktop 1280 + mobile 375): hero/statement/gallery/testimoni/quote-form/lokasi/footer/kartu layanan — kontras aman, aksen oranye & WA konsisten, peta Google tetap terang (embed eksternal, wajar), Sheet menu mobile otomatis gelap via CSS var shadcn.
+   156→- Uji interaksi: toggle light→dark (html.class="dark", body bg oklch ~0.145, localStorage "dark"), reload → persist dark, toggle balik → light tersimpan; default localStorage kosong → class "light"; Escape tutup sheet; 19 link WA & 0 gambar rusak di dark.
+   157→- FIX: hero badge "ONLINE 24 JAM" text-slate-700 → dark:text-slate-300 (sebelumnya abu terlalu gelap di dark); lint error react-hooks/set-state-in-effect pada ThemeToggle awal (useState+useEffect) → refactor useSyncExternalStore; lint exit 0.
+   158→- Verifikasi akhir: lint 0, console 0 error 0 warning (fresh buffer), dev.log 200, localStorage dibersihkan setelah QA.
+   159→
+   160→Stage Summary:
+   161→- Landing page v6: kini dukung mode gelap penuh (toggle di header + preferensi sistem + persistensi localStorage), aksesibilitas naik (skip link), dan pipeline gambar siap AVIF.
+   162→- Semua foto/video tetap 100% asli folder referensi; tanpa asisten AI; semua CTA ke wa.me/6281221944007; konten tetap terpusat di src/config/site.ts.
+   163→- Risiko/next: metadataBase masih placeholder (ganti saat domain riil); testimoni masih demo (minta ulasan asli pemilik); themeColor meta statis "#020617" (bisa dibuat dinamis mengikuti tema via viewport generate per-theme bila diinginkan); salin alamat perlu cek manual di device asli; kandidat berikutnya: animasi view-transition antar tema, BreadcrumbList JSON-LD tidak relevan (one-pager), atau penyempurnaan copy saat pemilik beri data asli (ulasan, domain).
+   164→
+   165→---
+   166→Task ID: 7 (cron webDevReview #6)
+   167→Agent: Z.ai Code (cron agent)
+   168→Task: QA + lightbox terpadu (foto+video, swipe) + SEO robots/sitemap + theme-color dinamis + focus ring brand (ronde v7)
+   169→
+   170→Work Log:
+   171→- QA awal (browser fresh): server 200, lint bersih, 9 anchor, 0 gambar rusak, 19 link WA, tanpa horizontal scroll, console bersih → tidak ada bug prioritas.
+   172→- FITUR UTAMA — Lightbox galeri terpadu (gallery.tsx ditulis ulang):
+   173→  - Kini 13 item (12 foto + 1 video) bisa dinavigasi dalam SATU lightbox: prev/next, keyboard ArrowLeft/Right/Escape, counter pill "n / 13" (bg-white/15 blur), caption + badge tipe.
+   174→  - Video kini dibuka di lightbox (controls + autoplay + loop + muted — autoplay diizinkan browser karena muted; audio video memang sudah dibuang saat kompresi). Tile video di grid diberi badge "VIDEO" + tombol play saat hover; inline play lama dihapus (konsistensi UX).
+   175→  - SWIPE MOBILE: touchstart/touchend pada lightbox, delta > 48px → pindah item (terverifikasi via simulasi TouchEvent: 1/13 → 2/13).
+   176→  - Navigasi lintas tipe terverifikasi: video 2/13 → next → foto 3/13 → ArrowLeft → video 2/13 (autoplay OK).
+   177→  - Detail: caption bar video diberi pointer-events-none + pb-12 agar kontrol video bawaan tetap bisa diklik; backdrop dialog + backdrop-blur-sm.
+   178→- BUG DITEMUKAN & DIPERBAIKI — /robots.txt 500: konflik public/robots.txt statis (scaffold lama) vs app/robots.ts dinamis → file statis dihapus; robots dinamis kini menyertakan referensi Sitemap.
+   179→- FITUR SEO — robots.ts + sitemap.ts (MetadataRoute): allow all bots + sitemap URL; sitemap.xml 200 dengan loc kanonik; site.url ditambahkan ke src/config/site.ts sebagai sumber tunggal domain kanonik, metadataBase layout kini pakai site.url (bukan hardcode).
+   180→- FITUR — theme-color dinamis: ThemeColorSync di theme-provider.tsx menyinkronkan meta[name=theme-color] dengan tema aktif (#ffffff light / #020617 dark) — address bar Android/iOS ikut tema. Terverifikasi toggle: #ffffff → #020617 → #ffffff.
+   181→- STYLING — Focus ring oranye brand-wide: --ring di :root & .dark diganti ke oranye (oklch 0.705/0.75) → semua input, tombol, dan elemen fokusable kini berkilau oranye konsisten (terverifikasi via Tab keyboard: outline oklab oranye /50).
+   182→- Verifikasi akhir: lint exit 0, console 0 error 0 warning (fresh buffer), robots.txt 200 + sitemap, 13 tile galeri + 1 badge video, lightbox foto (4/13) & video (2/13) render benar, 19 link WA, 0 gambar rusak, tanpa horizontal scroll, dev.log 200.
+   183→
+   184→Stage Summary:
+   185→- Landing page v7: galeri kini pengalaman viewer lengkap (foto+video dalam satu navigasi, swipe mobile, autoplay), SEO teknis lengkap (robots+sitemap+domain kanonik terpusat), tema mengikuti hingga address bar, dan fokus keyboard berwarna brand.
+   186→- Semua foto/video tetap 100% asli folder referensi; tanpa asisten AI; semua CTA ke wa.me/6281221944007; konten tetap terpusat di src/config/site.ts (kini termasuk site.url).
+   187→- Risiko/next: site.url masih domain placeholder (ganti sekali di site.url saat domain riil — otomatis merambat ke metadataBase/robots/sitemap); testimoni masih demo; swipe hanya terverifikasi via simulasi TouchEvent (perlu cek manual di HP asli untuk feel/gesture); kandidat berikutnya: prefetch/preload halus saat hover nav, atau penyempurnaan konten menunggu data asli pemilik (ulasan, harga, domain).
+   188→
+   189→---
+   190→Task ID: 8 (cron webDevReview #7)
+   191→Agent: Z.ai Code (cron agent)
+   192→Task: QA + WhatsApp Quick-Launcher + vCard Simpan Kontak + Dialog detail layanan + polish styling (ronde v8)
+   193→
+   194→Work Log:
+   195→- QA awal (browser fresh): server 200, 9 anchor section, 0 gambar rusak, tanpa horizontal scroll (desktop 1280 + mobile 375), console bersih, dark mode tetap berfungsi. Tidak ada bug prioritas → lanjut fitur baru.
+   196→- FITUR A — WhatsApp Quick-Launcher (floating-whatsapp.tsx ditulis ulang, "use client"):
+   197→  - Tombol WA mengambang (desktop) kini membuka panel "Pesan Cepat": chip 9 layanan + "Lainnya / belum yakin" (toggle, aria-pressed), pesan WA tersusun otomatis sesuai pilihan → window.open wa.me/6281221944007. Tanpa pilihan = pesan default.
+   198→  - Panel: aksen gradien hijau WA di tepi atas, animasi framer-motion (scale/fade, hormat reduced-motion), backdrop klik-luar menutup, Escape menutup (listener di effect, aman lint), ikon tombol berubah WA→X, aria-expanded/aria-haspopup/role=dialog.
+   199→  - Tetap BUKAN asisten AI — pengunjung menyusun pesan sendiri; mobile quickbar tetap tautan langsung (jalur cepat).
+   200→- FITUR B — vCard "Simpan Kontak" (komponen baru save-contact.tsx):
+   201→  - Tombol membuat file .vcf (Blob + createObjectURL, nama kontak-mukundo-teknologi.vcf) berisi nama, WA, email, alamat, URL, jam buka → pengunjung bisa menyimpan kontak workshop ke HP dalam satu klik.
+   202→  - Ditempatkan di kartu Alamat section Lokasi + kolom Kontak footer (variant gelap). Terverifikasi: file terunduh di headless dan isi vCard valid (BEGIN/END, TEL/ADR/URL/NOTE benar).
+   203→- FITUR C — Dialog rincian layanan (services.tsx jadi client):
+   204→  - Setiap kartu layanan punya tombol (i) "Lihat rincian" selalu terlihat (termasuk mobile) — pattern stretched-link: kartu utuh tetap menuju WA, tombol info di z-20 di atasnya.
+   205→  - Dialog menampilkan ikon, judul, deskripsi, 4 rincian sub-jasa per layanan (data baru `items` di site.ts), kotak "Estimasi gratis… kirim foto kerusakan", dan CTA hijau WA dengan pesan per-layanan.
+   206→- STYLING DETAIL:
+   207→  - Header shrink: tinggi md 80px→64px + logo 40→36px saat scroll (transition-[height]).
+   208→  - Testimoni mobile: kini carousel scroll-snap (kartu 82vw + peek kartu berikut, scrollbar tersembunyi, hint "GESER UNTUK MELIHAT LAINNYA →"); desktop tetap grid 3 kolom + featured terangkat.
+   209→  - btn-shine: kilau putih menyapu tombol hijau utama saat hover (hero, header, footer, sheet mobile, submit form, panel launcher, dialog layanan) + varian .btn-shine-warm oranye untuk tombol putih di CTA banner. Otomatis mati saat prefers-reduced-motion.
+   210→- Verifikasi akhir agent-browser: launcher buka/tutup (klik luar + Escape), chip "Motor & Mesin Industri" → URL wa.me berisi pesan lengkap; dialog detail 2 layanan dicek (light+dark) dengan CTA WA per-layanan benar; vCard terunduh & konten valid; header menyusut 80→64px; carousel snap 306px (posisi kartu 2); tanpa horizontal scroll; 18 <a> WA (floating kini tombol panel — wajar) + 9 tombol rincian + 2 tombol Simpan Kontak; console 0 error 0 warning (fresh buffer); lint exit 0; dev.log 200.
+   211→
+   212→Stage Summary:
+   213→- Landing page v8: jalur konversi makin lengkap (launcher pesan cepat 1-klik di tombol mengambang, dialog rincian jasa menjawab "apa saja yang dikerjakan" per layanan, kontak bisa disimpan ke HP via vCard), plus detail gerak & kilau yang halus di seluruh CTA utama.
+   214→- Semua foto/video tetap 100% asli folder referensi; tanpa asisten AI; semua CTA tetap ke wa.me/6281221944007; konten terpusat di src/config/site.ts (kini + items per layanan).
+   215→- Risiko/next: site.url masih placeholder (ganti saat domain riil — merambat otomatis ke metadataBase/robots/sitemap/vCard URL); testimoni masih demo (minta ulasan asli pemilik); launcher hanya desktop (mobile tetap quickbar langsung — bisa dipertimbangkan versi sheet di lain waktu); uji vCard di HP Android/iOS asli untuk memastikan aplikasi kontak terbuka; kandidat berikutnya: sheet quick-launcher versi mobile, atau penyempurnaan konten menunggu data asli pemilik.
+   216→
+   217→---
+   218→Task ID: 9 (cron webDevReview #8)
+   219→Agent: Z.ai Code (cron agent)
+   220→Task: QA + Mobile WhatsApp Quick-Launcher (bottom sheet) + chip area jadi deep link WA + fallback pop-up form + tombol salin nomor (ronde v9)
+   221→
+   222→Work Log:
+   223→- QA awal (browser fresh): server 200, lint bersih, 8 anchor section, 0 gambar rusak, tanpa horizontal scroll (desktop 1280 + mobile 375), console bersih, dark mode OK. Tidak ada bug prioritas → lanjut fitur baru (sesuai kandidat dari Task 8: launcher versi mobile).
+   224→- FITUR A — WhatsApp Quick-Launcher versi MOBILE (mobile-quickbar.tsx ditulis ulang, kini client component):
+   225→  - Quickbar kini 3 tombol: Telepon (outline) + "Pesan" (ClipboardList, aksen oranye, BARU) + Chat WhatsApp (hijau, direct link — jalur tercepat TIDAK dihilangkan).
+   226→  - Tombol "Pesan" membuka bottom Sheet (shadcn Sheet side="bottom"): grabber + aksen gradien hijau WA, judul "Pesan Cepat" + deskripsi (SheetTitle/SheetDescription — a11y Radix lengkap, 0 warning), 10 chip jasa (9 layanan + "Lainnya / belum yakin", aria-pressed), tombol kirim menyusun pesan per-layanan → wa.me/6281221944007, dua tautan sekunder: "Langsung chat tanpa pilih jasa" (wa.me default) & "Isi form 30 detik" (#pesan, menutup sheet lalu scroll), catatan nomor tujuan. Escape & klik overlay menutup (Radix); padding safe-area iOS.
+   227→  - BUG DITEMUKAN & DIPERBAIKI saat QA: quickbar (z-50, fixed bottom) menimpa footer sheet yang terbuka → quickbar kini slide-turun (translate-y-full + transition 300ms) saat sheet terbuka, kembali saat tertutup (terverifikasi: barTop 594 → 667 → 594). Sheet diberi z-[60] sebagai lapisan aman tambahan.
+   228→- FITUR B — Chip Area Layanan jadi DEEP LINK WhatsApp (coverage.tsx):
+   229→  - 8 chip wilayah + "+ Sekitarnya" kini anchor wa.me dengan pesan otomatis per-area ("Halo…, saya dari Kalijati. Saya butuh bantuan jasa…") / pesan khusus di-luar-daftar; aria-label per chip; teks bantu baru "Ketuk area Anda — langsung tersambung ke WhatsApp kami."
+   230→  - Styling: hover lift -translate-y-0.5 + shadow oranye + active:scale-95; "+ Sekitarnya" hover menjadi oranye.
+   231→- FITUR C — Umpan balik pasca-kirim form #pesan (quote-form.tsx) — menutup celah nyata pop-up blocker:
+   232→  - Nilai kembalian window.open dicek: null (diblokir) → kotak oranye "Pop-up diblokir browser Anda." + tombol "Buka WhatsApp manual" (wa.me); sukses → kotak hijau "WhatsApp terbuka di tab baru…" + tautan fallback manual. URL pesan disimpan di state sehingga fallback selalu benar.
+   233→  - role="status" aria-live="polite", animasi framer-motion hormat prefers-reduced-motion.
+   234→- FITUR D — Tombol "Salin Nomor" (komponen baru copy-phone.tsx):
+   235→  - Menyalin +6281221944007 (Clipboard API + fallback execCommand), feedback "Tersalin!" hijau 2 detik, aria-live. Dipasang di 2 tempat: kartu "Terkirim langsung ke" (form #pesan) dan baris telepon footer.
+   236→  - Perbaikan kecil: teks kartu tidak lagi truncate (wrap 2 baris) agar nama perusahaan tetap terbaca di samping tombol.
+   237→- STYLING DETAIL: tombol "Pesan" oranye berbeda dari telepon/WA; sheet rounded-t-3xl + grabber + gradien; chips lift; kotak feedback hijau/oranye lembut; press-state active:scale-95 di quickbar.
+   238→- Verifikasi akhir agent-browser (mobile 375 + desktop 1280, light + dark): sheet buka/tutup (klik luar, Escape, tombol), chip "CCTV & Keamanan" → tombol berubah "Pesan CCTV & Keamanan" → window.open ke wa.me dengan pesan lengkap (intersepsi URL diverifikasi); tautan "Isi form" menutup sheet & scroll ke #pesan; submit form kosong-tidak-diblokir → kotak hijau; window.open=()=>null → kotak oranye + tombol manual (bg oranye terverifikasi); 9 chip area = 9 wa.me dengan pesan per-area benar (decodeURIComponent); 27 link WA total (18 lama + 9 chip); 2 tombol Salin Nomor; 0 gambar rusak; 0 horizontal scroll; quickbar 3 tombol & hidden di desktop; sheet dark mode rapi (screenshot); console 0 error 0 warning (fresh buffer); lint exit 0; dev.log 200.
+   239→- Catatan QA: screenshot headless sempat menampilkan frame basi (kompositor) saat verifikasi overlap sheet — diverifikasi akhir via asersi DOM (getBoundingClientRect + elementFromPoint) dan crop screenshot beresolusi tinggi: setelah fix, footer sheet SEPENUHNYA terlihat; yang menimpa teks hanyalah badge dev Next.js ("N") yang tidak ada di production.
+   240→
+   241→Stage Summary:
+   242→- Landing page v9: kesenjangan mobile-desktop tutup — pengguna HP kini punya launcher pesan terstruktur (pilih jasa → pesan tersusun) TANPA kehilangan jalur tercepat (chat langsung); area layanan berubah dari informasi pasif menjadi 9 titik konversi; form #pesan anti-gagal (pop-up diblokir tetap dapat jalan chat); nomor bisnis bisa disalin dari 2 tempat.
+   243→- Semua foto/video tetap 100% asli folder referensi; tanpa asisten AI; semua CTA ke wa.me/6281221944007; konten tetap terpusat di src/config/site.ts.
+   244→- Risiko/next: site.url masih placeholder (ganti sekali di site.url saat domain riil); testimoni masih demo (minta ulasan asli pemilik); tombol Salin Nomor & feel sheet perlu cek manual di device asli (headless tidak bisa uji clipboard/gesture); kandidat berikutnya: penyempurnaan konten menunggu data asli pemilik (ulasan, domain, foto before/after), atauoptimasi kecil lain sesuai kebutuhan.
+   245→
+   246→---
+   247→Task ID: 10 (cron webDevReview #9)
+   248→Agent: Z.ai Code (cron agent)
+   249→Task: QA + Foto dokumentasi asli di dialog layanan + halaman 404 bermerek + JSON-LD katalog layanan + tombol Bagikan (ronde v10)
+   250→
+   251→Work Log:
+   252→- QA awal (browser fresh): server 200, lint bersih, 0 gambar rusak, 0 horizontal scroll, 27 link WA, console bersih. Tidak ada bug prioritas → lanjut fitur baru.
+   253→- FITUR A — Foto dokumentasi ASLI di dialog rincian layanan (site.ts + services.tsx):
+   254→  - Field baru `photo?` + `photoAlt?` pada tipe Service; 8 dari 9 layanan dipetakan ke foto referensi asli yang relevan (AC→brazing kompresor, Kelistrikan→instalasi rapi, Pasang Baru PLN→briefing K3, Meter→meter prabayar, Motor→motor industri, Alat Berat→genset, AC Mobil→modul kendaraan, Atap→frame video inspeksi atap). CCTV sengaja TANPA foto (tidak ada foto referensi yang cocok — tidak dipaksakan, layout tetap rapi).
+   255→  - Dialog: foto full-bleed di tepi atas (h-44, object-cover, rounded-t), overlay gradien, chip "DOKUMENTASI LAPANGAN KAMI" + dot oranye; DialogContent diberi overflow-hidden; hover foto scale halus (group/photo); tombol close kini pill gelap blur agar kontras di atas foto (arbitrary variant data-slot=dialog-close).
+   256→- FITUR B — Halaman 404 bermerek (src/app/not-found.tsx, BARU — sebelumnya default Next):
+   257→  - Logo asli, angka "404" gradien oranye-amber, judul + pesan Indonesia, 2 CTA: "Kembali ke Beranda" (oranye) & "Chat WhatsApp" (hijau, wa.me), pil nomor telepon + jam buka. Dot-grid + blur blob dekoratif, dark mode penuh, metadata sendiri. Pengunjung yang tersesat tetap punya jalur konversi.
+   258→- FITUR C — JSON-LD hasOfferCatalog (layout.tsx): katalog 9 layanan (Offer → Service name+description+provider) dibangun dari array services di site.ts (tetap satu sumber data) — membantu Google memahami cakupan jasa. Terverifikasi di DOM: LocalBusiness + 9 offer.
+   259→- FITUR D — Tombol "Bagikan" (komponen baru share-button.tsx) di footer (sebelah Simpan Kontak):
+   260→  - Web Share API bila tersedia (Android/iOS: share sheet native) dengan judul+teks+URL halaman saat ini; fallback: salin tautan (Clipboard API + execCommand) dengan feedback "Tautan Tersalin!" 2 detik + aria-live. Bukan AI — hanya berbagi tautan.
+   261→- STYLING DETAIL: chip dokumentasi + dot oranye; pill close blur; hover zoom foto dialog; gradien teks 404; pil kontak 404.
+   262→- Verifikasi akhir agent-browser (desktop 1280 + mobile 375, light + dark): dialog 2 layanan dibuka — foto ter-render via /_next/image + chip caption (Servis & Cuci AC, Motor & Mesin Industri); dialog CCTV benar TANPA foto; JSON-LD 9 offer terverifikasi; /halaman-ngawur → 404 bermerek lengkap (logo, h1, 2 CTA, nomor) + screenshot; tombol Bagikan ada & klik tidak error (headless tak bisa menampilkan share sheet — jalur share native utk device nyata, fallback copy terverifikasi lewat kode); 27 link WA, 0 gambar rusak, 0 horizontal scroll, console 0 error 0 warning, lint exit 0, dev.log 200.
+   263→- Catatan QA: satu kali klik info-button mengenai stretched-link kartu karena Reveal animation belum selesai (artefak timing test, bukan bug produk — di browser nyata layout sudah stabil saat pengguna klik); setelah settle 2s klik tepat sasaran.
+   264→
+   265→Stage Summary:
+   266→- Landing page v10: dialog layanan kini menampilkan bukti visual pekerjaan asli (bukan AI) tepat saat calon pelanggan ragu; halaman 404 tidak lagi generik dan tetap mengarahkan ke konversi; schema katalog layanan memperkaya SEO lokal; situs mudah dibagikan lewat tombol Bagikan.
+   267→- Semua foto/video tetap 100% asli folder referensi (foto dialog = foto galeri/hero yang sama, tanpa duplikasi file); tanpa asisten AI; semua CTA ke wa.me/6281221944007; konten tetap terpusat di src/config/site.ts.
+   268→- Risiko/next: site.url masih placeholder (ganti sekali saat domain riil — merambat ke metadata/robots/sitemap/vCard); testimoni masih demo (minta ulasan asli pemilik); CCTV & Keamanan belum punya foto referensi — bila pemilik punya foto pemasangan CCTV asli, tinggal tambahkan file + set photo di site.ts; tombol Bagikan/Salin/vCard & feel sheet perlu uji manual di device asli; kandidat berikutnya: menunggu data asli pemilik (ulasan, domain, foto CCTV/before-after) atau penyempurnaan kecil lain.
+   269→
+   270→---
+   271→Task ID: 11 (cron webDevReview #10)
+   272→Agent: Z.ai Code (cron agent)
+   273→Task: QA + navigasi antar-layanan di dialog + garis proses teranimasi + chip telepon di header + meta appleWebApp (ronde v11)
+   274→
+   275→Work Log:
+   276→- QA awal: server 200, lint bersih, 0 gambar rusak, 0 horizontal scroll, 27 link WA, console bersih. Tidak ada bug prioritas → lanjut fitur baru.
+   277→- FITUR A — Navigasi antar-layanan di dialog rincian (services.tsx):
+   278→  - Tombol ‹ › di bawah kotak estimasi: lompat ke layanan sebelumnya/berikutnya TANPA menutup dialog (wrap-around 9→1), counter "n / 9" tabular-nums, aria-label dinamis yang mengumumkan nama layanan tujuan ("Layanan berikutnya: Kelistrikan & Instalasi").
+   279→  - Keyboard: ArrowRight/ArrowLeft pindah layanan saat dialog terbuka (listener di effect, ikut Escape bawaan Radix). Foto, items, dan CTA WA per-layanan ikut berganti.
+   280→- FITUR B — Garis penghubung proses teranimasi (process.tsx jadi client component):
+   281→  - Garis oranye kini TERGAMBAR dari kiri (scaleX 0→1) saat section masuk viewport (useInView once), di atas garis dasar redup; titik oranye kecil berjalan pelan sepanjang garis (loop dengan jeda 2,5 detik). Semua hormat prefers-reduced-motion (langsung full + tanpa titik). Terverifikasi: garis penuh + dot beranimasi (opacity berubah saat dicek).
+   282→- FITUR C — Chip telepon langsung di header (header.tsx):
+   283→  - "+62 812-2194-4007" (tel:) tampil mulai breakpoint xl (1280px+) antara nav dan toggle tema — jalur konversi telepon untuk pengguna desktop; tersembunyi di lg/1024 agar 7 link nav tetap muat (terverifikasi tanpa overflow di kedua lebar). whitespace-nowrap (fix: teks sempat wrap 2 baris saat QA visual), h-40px konsisten, hover aksen oranye, dark mode rapi.
+   284→- FITUR D — Meta appleWebApp (layout.tsx): capable + statusBarStyle + title — saat disimpan ke home screen iOS, web app tampil dengan nama "Mukundo Teknologi".
+   285→- Verifikasi akhir agent-browser (desktop 1280 + mobile 375 + 1024, light): dialog — buka 1/9 → next → 2/9 (judul berganti), ArrowRight×2 → 4/9, ArrowLeft → 3/9, wrap 9/9 → next → 1/9 dengan aria-label benar; header — chip tel: ada di 1280 (nowrap, h40), hidden di 1024, 0 overflow di 1280/1024/375; proses — garis scaleX penuh + dot berjalan; meta apple-mobile-web-app ter-render; 27 link WA, 0 gambar rusak, 0 horizontal scroll, console 0 error 0 warning (fresh buffer), lint exit 0, dev.log 200.
+   286→- Catatan QA: mengklik tombol next 8× dalam SATU eval batch menghasilkan counter yang melompat (React batching — semua handler membaca idx lama) — bukan bug; klik berurutan nyata (satu render per klik) terverifikasi benar termasuk wrap-around.
+   287→
+   288→Stage Summary:
+   289→- Landing page v11: eksplorasi layanan makin mudah (browse 9 layanan di dalam dialog pakai panah keyboard/tombol, tanpa tutup-buka), alur pemesanan terasa hidup (garis tergambar + titik berjalan), dan desktop besar kini punya akses telepon 1-klik di header.
+   290→- Semua foto/video tetap 100% asli folder referensi; tanpa asisten AI; semua CTA ke wa.me/6281221944007; konten tetap terpusat di src/config/site.ts.
+   291→- Risiko/next: site.url masih placeholder (ganti sekali saat domain riil); testimoni masih demo (minta ulasan asli pemilik); CCTV belum punya foto referensi (tambahkan file + photo di site.ts saat pemilik punya); uji manual di device asli: chip telepon di layar 1280-1366px sempit, share/salin/vCard, feel animasi proses; kandidat berikutnya: menunggu data asli pemilik atau penyempurnaan kecil sesuai kebutuhan.
+   292→

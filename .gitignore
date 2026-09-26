@@ -52,10 +52,3 @@ prompt
 server.log
 # Skills directory
 /skills/
-
-# Project working files (not part of the website)
-/upload/
-/mini-services/
-/worklog.md
-/Caddyfile
-dev.out.log

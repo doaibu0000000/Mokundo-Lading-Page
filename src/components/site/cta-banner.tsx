@@ -1,64 +1,45 @@
-import { MapPin } from "lucide-react";
-import { site, waLink } from "@/config/site";
+import { Button } from "@/components/ui/button";
+import { defaultWaMessage, waLink } from "@/config/site";
 import { Reveal } from "./reveal";
 import { WhatsAppIcon } from "./whatsapp-icon";
-import { BlinkingDot } from "./blinking-dot";
 
+/** Banner CTA akhir sebelum footer. */
 export function CtaBanner() {
   return (
-    <section className="bg-stone-950 pb-20 lg:pb-28" aria-label="Ajakan menghubungi kami">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section aria-label="Ajakan menghubungi" className="bg-white pb-16 md:pb-24 dark:bg-slate-950">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          {/* Ambient Glow di belakang kartu */}
-          <div className="relative">
+          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-orange-500 via-orange-600 to-[#c2410c] px-6 py-14 text-center shadow-[0_35px_70px_-25px_rgba(234,88,12,0.55)] sm:px-12 md:py-16">
+            {/* Tekstur titik halus */}
             <div
-              aria-hidden
-              className="pointer-events-none absolute -inset-3 rounded-[2.5rem] bg-gradient-to-r from-orange-500/20 via-amber-500/10 to-orange-500/20 blur-2xl opacity-75"
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]"
             />
-
-            <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b from-stone-900/90 via-stone-950/95 to-stone-950 px-6 py-14 text-center shadow-2xl shadow-black/90 backdrop-blur-xl sm:px-12 lg:py-20">
-              {/* Dekorasi Grid & Ambient Radial Light */}
-              <div aria-hidden className="pointer-events-none absolute inset-0">
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_80%_at_50%_50%,black,transparent)]" />
-                <div className="absolute -left-20 -top-24 h-80 w-80 rounded-full bg-orange-500/25 blur-3xl animate-pulse" />
-                <div className="absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-amber-400/20 blur-3xl" />
-              </div>
-
-              <div className="relative">
-                {/* Badge Status Siaga 24 Jam */}
-                <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-bold text-emerald-300 shadow-sm">
-                  <BlinkingDot />
-                  Layanan Darurat &amp; Konsultasi 24 Jam
-                </span>
-
-                <h2 className="mx-auto max-w-2xl text-balance text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
-                  AC Bermasalah? Listrik Perlu Ditangani Hari Ini?
-                </h2>
-                <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-stone-300">
-                  Ceritakan kebutuhan Anda sekarang — tim kami merespons cepat
-                  dan siap datang langsung ke lokasi Anda, 24 jam sehari.
-                </p>
-                <div className="mt-9 flex flex-col justify-center gap-3.5 sm:flex-row">
-                  <a
-                    href={waLink()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 px-8 text-[15px] font-bold text-white shadow-xl shadow-orange-500/30 transition-all duration-300 hover:shadow-orange-500/50 hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    <WhatsAppIcon className="h-5 w-5" />
-                    Chat WhatsApp Sekarang
-                  </a>
-                  <a
-                    href={site.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 text-[15px] font-bold text-white backdrop-blur transition-all duration-300 hover:border-white/40 hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    <MapPin className="h-4.5 w-4.5 text-orange-400" aria-hidden />
-                    Lihat Lokasi Workshop
-                  </a>
-                </div>
-              </div>
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-white/10 blur-2xl"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-20 -right-10 h-64 w-64 rounded-full bg-white/10 blur-2xl"
+            />
+            <div className="relative">
+              <h2 className="text-balance text-3xl font-black tracking-tight text-white md:text-5xl">
+                Masih ragu? Tanya dulu, gratis.
+              </h2>
+              <p className="mx-auto mt-4 max-w-lg text-pretty text-base font-medium leading-relaxed text-white/90 md:text-lg">
+                Kirim foto kerusakan Anda — tim kami balas dengan estimasi yang jelas.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                className="btn-shine btn-shine-warm mt-8 h-[56px] rounded-full bg-white px-8 text-base font-black text-orange-700 shadow-xl transition-transform hover:-translate-y-0.5 hover:bg-white dark:bg-slate-950 dark:text-orange-400 dark:hover:bg-slate-900"
+              >
+                <a href={waLink(defaultWaMessage)} target="_blank" rel="noopener noreferrer">
+                  <WhatsAppIcon className="h-5 w-5 text-[#1faa53]" />
+                  Chat WhatsApp Sekarang
+                </a>
+              </Button>
             </div>
           </div>
         </Reveal>

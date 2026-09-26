@@ -1,102 +1,51 @@
+import { ScrollProgress } from "@/components/site/scroll-progress";
 import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
-import { StatsBar } from "@/components/site/stats-bar";
+import { Marquee, StatsBar } from "@/components/site/marquee";
 import { Services } from "@/components/site/services";
-import { WhyUs } from "@/components/site/why-us";
-import { Process } from "@/components/site/process";
+import { Statement } from "@/components/site/statement";
 import { Gallery } from "@/components/site/gallery";
-import { Coverage } from "@/components/site/coverage";
+import { WhyUs } from "@/components/site/why-us";
 import { Testimonials } from "@/components/site/testimonials";
 import { Faq } from "@/components/site/faq";
+import { Process } from "@/components/site/process";
+import { Coverage } from "@/components/site/coverage";
+import { QuoteForm } from "@/components/site/quote-form";
+import { Location } from "@/components/site/location";
 import { CtaBanner } from "@/components/site/cta-banner";
-import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
 import { FloatingWhatsApp } from "@/components/site/floating-whatsapp";
 
-import { coverageAreas, images, serviceGroups, site } from "@/config/site";
-
-function JsonLd() {
-  const data = {
-    "@context": "https://schema.org",
-    "@type": ["HVACBusiness", "Electrician"],
-    "@id": `${site.url}/#business`,
-    name: site.name,
-    description: site.description,
-    url: site.url,
-    telephone: `+${site.whatsappNumber}`,
-    email: site.email,
-    image: images.whyUs.src,
-    priceRange: "$$",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: site.address.street,
-      addressLocality: site.address.city,
-      addressRegion: site.address.province,
-      addressCountry: "ID",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: site.geo.lat,
-      longitude: site.geo.lng,
-    },
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
-      opens: "00:00",
-      closes: "23:59",
-    },
-    areaServed: coverageAreas.map((area) => ({
-      "@type": "City",
-      name: area,
-    })),
-    makesOffer: serviceGroups.flatMap((group) =>
-      group.items.map((item) => ({
-        "@type": "Offer",
-        itemOffered: { "@type": "Service", name: item.title },
-      }))
-    ),
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
-      }}
-    />
-  );
-}
-
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-white text-slate-950 dark:bg-slate-950 dark:text-slate-100">
+      {/* Skip link a11y — muncul saat difokuskan keyboard */}
+      <a
+        href="#beranda"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-orange-600 focus:px-5 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white focus:shadow-lg"
+      >
+        Langsung ke konten utama
+      </a>
+      <ScrollProgress />
       <Header />
-
       <main className="flex-1">
         <Hero />
         <StatsBar />
+        <Marquee />
         <Services />
-        <WhyUs />
-        <Process />
+        <Statement />
         <Gallery />
-        <Coverage />
+        <WhyUs />
         <Testimonials />
         <Faq />
+        <Process />
+        <Coverage />
+        <QuoteForm />
+        <Location />
         <CtaBanner />
-        <Contact />
       </main>
-
       <Footer />
       <FloatingWhatsApp />
-      <JsonLd />
     </div>
   );
 }

@@ -6,7 +6,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-jakarta);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -40,208 +41,251 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --animate-float: float 7s ease-in-out infinite;
-  --animate-float-slow: float-slow 8s ease-in-out infinite;
-  --animate-float-reverse: float-reverse 7s ease-in-out infinite;
-  --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
-  --animate-shimmer: shimmer 3.5s ease-in-out infinite;
-  --animate-border-beam: border-beam-spin 4s linear infinite;
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.625rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.216 0.006 56.043);
+  --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.216 0.006 56.043);
+  --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.216 0.006 56.043);
-  --primary: oklch(0.705 0.213 47.604);
-  --primary-foreground: oklch(0.985 0.001 106.423);
-  --secondary: oklch(0.97 0.001 106.424);
-  --secondary-foreground: oklch(0.216 0.006 56.043);
-  --muted: oklch(0.97 0.001 106.424);
-  --muted-foreground: oklch(0.553 0.013 58.071);
-  --accent: oklch(0.966 0.023 51.726);
-  --accent-foreground: oklch(0.408 0.123 38.172);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.923 0.003 48.717);
-  --input: oklch(0.923 0.003 48.717);
-  --ring: oklch(0.705 0.213 47.604);
-  --chart-1: oklch(0.705 0.213 47.604);
-  --chart-2: oklch(0.646 0.222 41.116);
-  --chart-3: oklch(0.553 0.013 58.071);
-  --chart-4: oklch(0.75 0.183 55.934);
-  --chart-5: oklch(0.47 0.157 37.304);
-  --sidebar: oklch(0.985 0.001 106.423);
-  --sidebar-foreground: oklch(0.216 0.006 56.043);
-  --sidebar-primary: oklch(0.705 0.213 47.604);
-  --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-accent: oklch(0.97 0.001 106.424);
-  --sidebar-accent-foreground: oklch(0.216 0.006 56.043);
-  --sidebar-border: oklch(0.923 0.003 48.717);
-  --sidebar-ring: oklch(0.705 0.213 47.604);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.705 0.213 47.604); /* oranye-500 — fokus konsisten dengan warna brand */
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(0.8deg);
-  }
-}
-
-@keyframes float-reverse {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(8px) rotate(-0.8deg);
-  }
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.75;
-    transform: scale(1.08);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-150%) skewX(-20deg);
-  }
-  40%,
-  100% {
-    transform: translateX(250%) skewX(-20deg);
-  }
-}
-
-@keyframes shield-radar {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.8;
-  }
-  70%,
-  100% {
-    transform: scale(1.45);
-    opacity: 0;
-  }
-}
-
-@keyframes shield-glow {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(0.95);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.15);
-  }
-}
-
-@keyframes border-beam-spin {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-.animate-border-beam {
-  animation: border-beam-spin 4s linear infinite !important;
-}
-
-@keyframes shield-heartbeat {
-  0%,
-  100% {
-    transform: scale(1) translateY(0);
-    filter: drop-shadow(0 0 2px rgba(249, 115, 22, 0.3));
-  }
-  30% {
-    transform: scale(1.15) translateY(-2px);
-    filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.9));
-  }
-  50% {
-    transform: scale(1.08) translateY(-1px);
-    filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.6));
-  }
-}
-
-.animate-shield-icon {
-  animation: shield-heartbeat 2.5s ease-in-out infinite !important;
-}
-
-@keyframes badge-float {
-  0%,
-  100% {
-    transform: translateY(0);
-    box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
-  }
-  50% {
-    transform: translateY(-3px);
-    box-shadow: 0 0 28px rgba(249, 115, 22, 0.45);
-  }
-}
-
-.animate-badge-float {
-  animation: badge-float 3s ease-in-out infinite !important;
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.75 0.16 55); /* oranye lebih terang agar terbaca di latar gelap */
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  html {
-    scroll-behavior: smooth;
-    /* Cegah horizontal scroll akibat elemen dekoratif absolut.
-       `clip` tidak membuat scroll container baru — position: sticky tetap aman. */
-    overflow-x: clip;
-  }
-  body {
-    overflow-x: clip;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-  }
   body {
     @apply bg-background text-foreground;
-    text-rendering: optimizeLegibility;
-  }
-  ::selection {
-    background: oklch(0.705 0.213 47.604 / 0.25);
   }
 }
 
-/* Sembunyikan Next.js dev indicator ("N" button di sudut layar) */
+/* ================= Mukundo Teknologi — kustom ================= */
+
+@theme inline {
+  --animate-marquee: marquee 36s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Kilau lembut untuk teks gradien (statement banner) */
+@keyframes shimmer-text {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Kilau menyapu tombol utama saat hover (versi terang — untuk tombol hijau/berwarna) */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: 1;
+  transform: translateX(-140%) skewX(-14deg);
+  background: linear-gradient(
+    100deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 75%
+  );
+  transition: transform 0.75s ease;
+  pointer-events: none;
+}
+.btn-shine:hover::after {
+  transform: translateX(140%) skewX(-14deg);
+}
+
+/* Kilau hangat — untuk tombol putih di atas banner oranye */
+.btn-shine-warm::after {
+  background: linear-gradient(
+    100deg,
+    transparent 25%,
+    rgba(234, 88, 12, 0.18) 50%,
+    transparent 75%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-shine::after {
+    display: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hormati preferensi reduced-motion: matikan smooth scroll */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Scrollbar halus & modern */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  background-clip: content-box;
+}
+
+::selection {
+  background: #ea580c;
+  color: #ffffff;
+}
+
+/* Sembunyikan dev issue badge & overlay Next.js */
 nextjs-portal,
-[data-nextjs-dev-indicator],
-[data-nextjs-toast-wrapper],
-div:has(> [data-nextjs-dev-indicator]) {
+[data-nextjs-toast],
+[data-nextjs-dialog-overlay] {
   display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
 }
 
+/* ============================================================
+   Animasi Mengambang Kartu Hero (Ultra-Smooth GPU Accelerated)
+   ============================================================ */
+
+/* Badge 1 (Respon Cepat) — Mengambang lembut diagonal melengkung + tilt mikro */
+@keyframes hero-float-card-1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(3px, -11px, 0) rotate(0.8deg);
+  }
+  66% {
+    transform: translate3d(-3px, -18px, 0) rotate(-0.6deg);
+  }
+}
+
+/* Badge 2 (2.500+ Proyek) — Mengambang berlawanan fase dengan sway dinamis */
+@keyframes hero-float-card-2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(-4px, 10px, 0) rotate(-0.8deg);
+  }
+  66% {
+    transform: translate3d(3px, 16px, 0) rotate(0.7deg);
+  }
+}
+
+/* Foto Kecil (Teknisi Lapangan) — Ritme lebih tenang & stabil */
+@keyframes hero-float-photo {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(3px, -8px, 0) rotate(-0.6deg);
+  }
+  66% {
+    transform: translate3d(-2px, -14px, 0) rotate(0.5deg);
+  }
+}
+
+.animate-hero-float-1 {
+  animation: hero-float-card-1 7.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+.animate-hero-float-2 {
+  animation: hero-float-card-2 8.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  animation-delay: -2s;
+  will-change: transform;
+}
+
+.animate-hero-photo {
+  animation: hero-float-photo 9.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  animation-delay: -3.5s;
+  will-change: transform;
+}
